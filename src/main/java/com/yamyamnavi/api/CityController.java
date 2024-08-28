@@ -17,6 +17,12 @@ public class CityController {
 
     private final CityService cityService;
 
+    /**
+     * 도시 목록을 조회합니다.
+     *
+     * @return map key - 도/시
+     *             value 시/군/구 리스트
+     */
     @GetMapping
     public ResultResponse<Map<String, List<String>>> getCites() {
         return new ResultResponse<>(cityService.getCites());
