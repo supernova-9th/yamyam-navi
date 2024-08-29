@@ -1,6 +1,5 @@
 package com.yamyamnavi.api;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.yamyamnavi.domain.city.CityService;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,7 +28,7 @@ class CityControllerTest {
     CityService cityService;
 
     @Test
-    void 도시_조회_테스트() throws Exception {
+    void 도시_목록_조회_테스트() throws Exception {
         // given
         Map<String, List<String>> result = new HashMap<>();
         result.put("서울시", Arrays.asList("동작구", "종로구"));
