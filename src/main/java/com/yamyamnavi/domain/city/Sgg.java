@@ -2,13 +2,13 @@ package com.yamyamnavi.domain.city;
 
 import lombok.*;
 
-import java.util.List;
-
 @Getter
 @Setter
+@Builder
 @NoArgsConstructor
 @AllArgsConstructor
-public class City {
-    private String city;
-    private List<Sgg> sgg;
+public class Sgg {
+    private String name;
+    private double longitude;
+    private double latitude;
 }

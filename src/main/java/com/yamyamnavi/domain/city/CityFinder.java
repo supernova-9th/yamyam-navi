@@ -21,11 +21,21 @@ public class CityFinder {
      *
      * @return 키는 도/시(`dosi`), 값은 해당 도시의 시/군/구(`sgg`) 리스트입니다.
      */
-    public Map<String, List<String>> findAll() {
-        List<City> cities = cityRepository.findAll();
-        return cities.stream().collect(Collectors.groupingBy(
-                        City::getDosi,
-                        Collectors.mapping(City::getSgg, Collectors.toList())
-                ));
+    public List<City> findAll() {
+        List<CitySgg> citySggList = cityRepository.findAll();
+
+        Map<String, List<CitySgg>> citySggMap = citySggList.stream().collect(Collectors.groupingBy(CitySgg::getCity));
+
+        List<City> cities = citySggMap.entrySet().stream()
+                .map(entry -> {
+                    String cityName = entry.getKey();
+                    List<Sgg> sggList = entry.getValue().stream()
+                            .map(CitySgg::createSgg)
+                            .collect(Collectors.toList());
+                    return new City(cityName, sggList);
+                })
+                .collect(Collectors.toList());
+
+        return cities;
     }
 }

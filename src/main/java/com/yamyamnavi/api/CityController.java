@@ -1,5 +1,6 @@
 package com.yamyamnavi.api;
 
+import com.yamyamnavi.domain.city.City;
 import com.yamyamnavi.domain.city.CityService;
 import com.yamyamnavi.support.response.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -28,7 +29,7 @@ public class CityController {
      */
     @GetMapping
     @Operation(summary = "도시 목록 조회", description = "도시 및 시/군/구의 리스트를 조회합니다.")
-    public ResultResponse<Map<String, List<String>>> getCites() {
+    public ResultResponse<List<City>> getCites() {
         return new ResultResponse<>(cityService.getCites());
     }
 }

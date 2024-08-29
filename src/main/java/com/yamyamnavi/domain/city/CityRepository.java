@@ -6,5 +6,5 @@ import java.util.List;
 
 @Repository
 public interface CityRepository {
-    List<City> findAll();
+    List<CitySgg> findAll();
 }

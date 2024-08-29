@@ -20,7 +20,7 @@ public class CityService {
      *             value 시/군/구 리스트
      */
     @Transactional(readOnly = true)
-    public Map<String, List<String>> getCites() {
+    public List<City> getCites() {
         return cityFinder.findAll();
     }
 }
