@@ -7,9 +7,7 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -27,20 +25,25 @@ class CityMockServiceTest {
     @Test
     void 도시_목록_조회_테스트() {
         //given
-        Map<String, List<String>> expect = new HashMap<>();
-        expect.put("전라", Arrays.asList("강진군", "여수시"));
-        expect.put("충청", Arrays.asList("공주시", "보령시"));
+        Sgg 강진군 = new Sgg("강진군", 126.7691972, 34.63891111);
+        Sgg 여수시 = new Sgg("여수시", 127.6643861, 34.75731111);
+        Sgg 공주시 = new Sgg("공주시", 127.1211194, 34.63891111);
+        Sgg 보령시 = new Sgg("보령시", 126.6148861, 36.330575);
+
+        City 전라 = new City("전라", Arrays.asList(강진군, 여수시));
+        City 충청 = new City("충청", Arrays.asList(공주시, 보령시));
+        List<City> expect = Arrays.asList(전라, 충청);
 
         given(cityFinder.findAll()).willReturn(expect);
 
         //when
-        Map<String, List<String>> result = cityService.getCites();
+        List<City> result = cityService.getCites();
 
         //then
         assertThat(result).isNotNull();
-        assertEquals(expect.size(), result.size());
-        assertThat(result.get("전라")).containsExactly("강진군", "여수시");
-        assertThat(result.get("충청")).containsExactly("공주시", "보령시");
+        assertEquals(2, result.size());
+        assertEquals(전라, result.get(0));
+        assertEquals(126.6148861, result.get(1).getSgg().get(1).getLongitude());
     }
 
 }

@@ -1,6 +1,7 @@
 package com.yamyamnavi.api.converter;
 
 import com.yamyamnavi.domain.city.City;
+import com.yamyamnavi.domain.city.CitySgg;
 import com.yamyamnavi.storage.city.CityEntity;
 import com.yamyamnavi.support.utils.GeometryUtils;
 import org.junit.jupiter.api.DisplayName;
@@ -32,7 +33,9 @@ class CityConverterTest {
     void CityEntity를_City로_변환한다() {
         // given
         GeometryFactory geometryFactory = new GeometryFactory();
-        Point location = geometryFactory.createPoint(new Coordinate(126.9784, 37.5665));
+        double x = 126.9784;
+        double y = 37.5665;
+        Point location = geometryFactory.createPoint(new Coordinate(x, y));
 
         CityEntity cityEntity = CityEntity.builder()
                 .dosi("서울")
@@ -41,27 +44,33 @@ class CityConverterTest {
                 .build();
 
         // when
-        City city = cityConverter.convert(cityEntity);
+        CitySgg city = cityConverter.convert(cityEntity);
 
         // then
         assertThat(city).isNotNull();
-        assertThat(city.getDosi()).isEqualTo("서울");
-        assertThat(city.getSgg()).isEqualTo("종로구");
+        assertEquals(city.getCity(),("서울"));
+        assertEquals(city.getSgg(),("종로구"));
+        assertEquals(city.getLongitude(), location.getX());
+        assertEquals(city.getLatitude(), location.getY());
     }
     @Test
     void CityEntity_리스트를_City_리스트로_변환한다() {
         // given
-        Point location1 = GeometryUtils.getPoint(126.9784, 37.5665);
-        Point location2 =  GeometryUtils.getPoint(127.0286, 37.4979);
+        double longitude1 = 126.9784;
+        double latitude1 = 37.5665;
+        double longitude2 = 127.0286;
+        double latitude2 = 37.4979;
+        Point location1 = GeometryUtils.getPoint(longitude1, latitude1);
+        Point location2 = GeometryUtils.getPoint(longitude2, latitude2);
 
         CityEntity cityEntity1 = CityEntity.builder()
-                .dosi("서울시")
+                .dosi("서울")
                 .sgg("종로구")
                 .location(location1)
                 .build();
 
         CityEntity cityEntity2 = CityEntity.builder()
-                .dosi("서울시")
+                .dosi("서울")
                 .sgg("강남구")
                 .location(location2)
                 .build();
@@ -69,15 +78,21 @@ class CityConverterTest {
         List<CityEntity> cityEntities = Arrays.asList(cityEntity1, cityEntity2);
 
         // when
-        List<City> cities = cityConverter.convert(cityEntities);
+        List<CitySgg> cities = cityConverter.convert(cityEntities);
 
         // then
-        assertThat(cities).isNotNull();
-        assertThat(cities).hasSize(2);
-        assertThat(cities.get(0).getDosi()).isEqualTo("서울시");
-        assertThat(cities.get(0).getSgg()).isEqualTo("종로구");
-        assertThat(cities.get(1).getDosi()).isEqualTo("서울시");
-        assertThat(cities.get(1).getSgg()).isEqualTo("강남구");
+        assertEquals(2, cities.size());
+
+        assertEquals("서울", cities.get(0).getCity());
+        assertEquals("종로구", cities.get(0).getSgg());
+        assertEquals(latitude1, cities.get(0).getLatitude());
+        assertEquals(longitude1, cities.get(0).getLongitude());
+
+        assertEquals("서울", cities.get(1).getCity());
+        assertEquals("강남구", cities.get(1).getSgg());
+        assertEquals(latitude2, cities.get(1).getLatitude());
+        assertEquals(longitude2, cities.get(1).getLongitude());
     }
+
 
 }

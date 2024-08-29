@@ -7,11 +7,10 @@ import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
@@ -26,28 +25,22 @@ class CityMockFinderTest {
     @Test
     void 도시_조회_후_그룹화하여_반환한다() {
         //given
-        List<City> cities = Arrays.asList(
-                new City("광주시", "남구"),
-                new City("광주시", "동구"),
-                new City("대구시", "중구"),
-                new City("대구시", "수성구")
-        );
+        CitySgg 강진군 = new CitySgg("전라", "강진군", 126.7691972, 34.63891111);
+        CitySgg 여수시 = new CitySgg("전라", "여수시", 127.6643861, 34.75731111);
+        CitySgg 공주시 = new CitySgg("충청", "공주시", 127.1211194, 34.63891111);
+        CitySgg 보령시 = new CitySgg("충청", "보령시", 126.6148861, 36.330575);
+        List<CitySgg> expect = Arrays.asList(강진군, 여수시, 공주시, 보령시);
 
-        given(cityRepository.findAll()).willReturn(cities);
+        given(cityRepository.findAll()).willReturn(expect);
 
         // when
-        Map<String, List<String>> result = cityFinder.findAll();
+        List<City> result = cityFinder.findAll();
 
         // then
-        Map<String, List<String>> expected = new HashMap<>();
-        expected.put("광주시", Arrays.asList("남구", "동구"));
-        expected.put("대구시", Arrays.asList("중구", "수성구"));
-
         assertThat(result).isNotNull();
-        assertThat(result).isEqualTo(expected);
-        assertThat(result.get("광주시")).containsExactly("남구", "동구");
-        assertThat(result.get("대구시")).containsExactly("중구", "수성구");
-
+        assertEquals(2, result.size());
+        assertEquals("전라", result.get(0).getCity());
+        assertEquals("공주시", result.get(1).getSgg().get(0).getName());
     }
 
 }
