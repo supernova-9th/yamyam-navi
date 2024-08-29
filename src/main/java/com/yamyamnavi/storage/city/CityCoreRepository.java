@@ -15,6 +15,6 @@ public class CityCoreRepository implements CityRepository {
     private final CityConverter cityConverter;
 
     public List<CitySgg> findAll() {
-        return cityConverter.convert(cityJpaRepository.findAll());
+        return cityConverter.convertToCitySgg(cityJpaRepository.findAll());
     }
 }

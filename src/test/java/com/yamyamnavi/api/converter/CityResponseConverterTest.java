@@ -4,7 +4,6 @@ import com.yamyamnavi.api.response.SggResponse;
 import com.yamyamnavi.domain.city.CitySgg;
 import com.yamyamnavi.storage.city.CityEntity;
 import com.yamyamnavi.support.utils.GeometryUtils;
-import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.locationtech.jts.geom.Coordinate;
@@ -44,7 +43,7 @@ class CityResponseConverterTest {
                 .build();
 
         // when
-        CitySgg city = cityConverter.convert(cityEntity);
+        CitySgg city = cityConverter.convertToCitySgg(cityEntity);
 
         // then
         assertThat(city).isNotNull();
@@ -78,7 +77,7 @@ class CityResponseConverterTest {
         List<CityEntity> cityEntities = Arrays.asList(cityEntity1, cityEntity2);
 
         // when
-        List<CitySgg> cities = cityConverter.convert(cityEntities);
+        List<CitySgg> cities = cityConverter.convertToCitySgg(cityEntities);
 
         // then
         assertEquals(2, cities.size());

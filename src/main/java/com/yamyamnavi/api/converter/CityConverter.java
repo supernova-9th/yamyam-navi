@@ -15,9 +15,9 @@ public interface CityConverter {
     @Mapping(target = "sgg", source = "sgg")
     @Mapping(target = "longitude", expression = "java(source.getLocation().getX())")
     @Mapping(target = "latitude", expression = "java(source.getLocation().getY())")
-    CitySgg convert(CityEntity source);
+    CitySgg convertToCitySgg(CityEntity source);
 
-    List<CitySgg> convert(List<CityEntity> source);
+    List<CitySgg> convertToCitySgg(List<CityEntity> source);
 
     @Mapping(target = "name", source = "sgg")
     SggResponse convertToSggResponse(CitySgg source);
