@@ -1,5 +1,8 @@
 package com.yamyamnavi.domain.city;
 
+import com.yamyamnavi.api.converter.CityConverter;
+import com.yamyamnavi.api.response.CityResponse;
+import com.yamyamnavi.api.response.SggResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
@@ -12,6 +15,7 @@ import java.util.stream.Collectors;
 public class CityFinder {
 
     private final CityRepository cityRepository;
+    private final CityConverter cityConverter;
 
     /**
      * 모든 도시를 조회하고, 도시에 따라 그룹화하여 반환합니다.
@@ -21,18 +25,18 @@ public class CityFinder {
      *
      * @return 키는 도/시(`dosi`), 값은 해당 도시의 시/군/구(`sgg`) 리스트입니다.
      */
-    public List<City> findAll() {
+    public List<CityResponse> findAll() {
         List<CitySgg> citySggList = cityRepository.findAll();
 
         Map<String, List<CitySgg>> citySggMap = citySggList.stream().collect(Collectors.groupingBy(CitySgg::getCity));
 
-        List<City> cities = citySggMap.entrySet().stream()
+        List<CityResponse> cities = citySggMap.entrySet().stream()
                 .map(entry -> {
                     String cityName = entry.getKey();
-                    List<Sgg> sggList = entry.getValue().stream()
-                            .map(CitySgg::createSgg)
+                    List<SggResponse> sggResponseList = entry.getValue().stream()
+                            .map(o -> cityConverter.convertToSggResponse(o))
                             .collect(Collectors.toList());
-                    return new City(cityName, sggList);
+                    return new CityResponse(cityName, sggResponseList);
                 })
                 .collect(Collectors.toList());
 

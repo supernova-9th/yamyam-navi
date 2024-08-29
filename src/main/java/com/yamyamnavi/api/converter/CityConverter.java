@@ -1,5 +1,6 @@
 package com.yamyamnavi.api.converter;
 
+import com.yamyamnavi.api.response.SggResponse;
 import com.yamyamnavi.domain.city.CitySgg;
 import com.yamyamnavi.storage.city.CityEntity;
 import org.mapstruct.Mapper;
@@ -17,4 +18,7 @@ public interface CityConverter {
     CitySgg convert(CityEntity source);
 
     List<CitySgg> convert(List<CityEntity> source);
+
+    @Mapping(target = "name", source = "sgg")
+    SggResponse convertToSggResponse(CitySgg source);
 }

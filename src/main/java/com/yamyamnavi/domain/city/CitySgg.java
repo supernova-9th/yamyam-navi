@@ -12,12 +12,4 @@ public class CitySgg {
     private String sgg;
     private double longitude;
     private double latitude;
-
-    public Sgg createSgg() {
-        return Sgg.builder()
-                .name(this.sgg)
-                .latitude(this.longitude)
-                .longitude(this.latitude)
-                .build();
-    }
 }

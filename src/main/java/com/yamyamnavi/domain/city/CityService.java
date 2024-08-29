@@ -1,11 +1,11 @@
 package com.yamyamnavi.domain.city;
 
+import com.yamyamnavi.api.response.CityResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
-import java.util.Map;
 
 @Service
 @RequiredArgsConstructor
@@ -20,7 +20,7 @@ public class CityService {
      *             value 시/군/구 리스트
      */
     @Transactional(readOnly = true)
-    public List<City> getCites() {
+    public List<CityResponse> getCites() {
         return cityFinder.findAll();
     }
 }

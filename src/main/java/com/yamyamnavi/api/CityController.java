@@ -1,6 +1,6 @@
 package com.yamyamnavi.api;
 
-import com.yamyamnavi.domain.city.City;
+import com.yamyamnavi.api.response.CityResponse;
 import com.yamyamnavi.domain.city.CityService;
 import com.yamyamnavi.support.response.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.util.List;
-import java.util.Map;
 
 @RestController
 @RequiredArgsConstructor
@@ -29,7 +28,7 @@ public class CityController {
      */
     @GetMapping
     @Operation(summary = "도시 목록 조회", description = "도시 및 시/군/구의 리스트를 조회합니다.")
-    public ResultResponse<List<City>> getCites() {
+    public ResultResponse<List<CityResponse>> getCites() {
         return new ResultResponse<>(cityService.getCites());
     }
 }
