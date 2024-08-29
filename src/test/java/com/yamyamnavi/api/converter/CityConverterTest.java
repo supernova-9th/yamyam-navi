@@ -2,6 +2,7 @@ package com.yamyamnavi.api.converter;
 
 import com.yamyamnavi.domain.city.City;
 import com.yamyamnavi.storage.city.CityEntity;
+import com.yamyamnavi.support.utils.GeometryUtils;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -50,9 +51,8 @@ class CityConverterTest {
     @Test
     void CityEntity_리스트를_City_리스트로_변환한다() {
         // given
-        GeometryFactory geometryFactory = new GeometryFactory();
-        Point location1 = geometryFactory.createPoint(new Coordinate(126.9784, 37.5665));
-        Point location2 = geometryFactory.createPoint(new Coordinate(127.0286, 37.4979));
+        Point location1 = GeometryUtils.getPoint(126.9784, 37.5665);
+        Point location2 =  GeometryUtils.getPoint(127.0286, 37.4979);
 
         CityEntity cityEntity1 = CityEntity.builder()
                 .dosi("서울시")
