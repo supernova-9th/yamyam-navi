@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 
 @ExtendWith(MockitoExtension.class)
-class CityServiceTest {
+class CityMockServiceTest {
 
     @Mock
     private CityFinder cityFinder;
