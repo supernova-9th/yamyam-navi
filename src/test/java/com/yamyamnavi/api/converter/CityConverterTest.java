@@ -55,13 +55,13 @@ class CityConverterTest {
         Point location2 = geometryFactory.createPoint(new Coordinate(127.0286, 37.4979));
 
         CityEntity cityEntity1 = CityEntity.builder()
-                .dosi("서울")
+                .dosi("서울시")
                 .sgg("종로구")
                 .location(location1)
                 .build();
 
         CityEntity cityEntity2 = CityEntity.builder()
-                .dosi("서울")
+                .dosi("서울시")
                 .sgg("강남구")
                 .location(location2)
                 .build();
@@ -74,9 +74,9 @@ class CityConverterTest {
         // then
         assertThat(cities).isNotNull();
         assertThat(cities).hasSize(2);
-        assertThat(cities.get(0).getDosi()).isEqualTo("서울");
+        assertThat(cities.get(0).getDosi()).isEqualTo("서울시");
         assertThat(cities.get(0).getSgg()).isEqualTo("종로구");
-        assertThat(cities.get(1).getDosi()).isEqualTo("서울");
+        assertThat(cities.get(1).getDosi()).isEqualTo("서울시");
         assertThat(cities.get(1).getSgg()).isEqualTo("강남구");
     }
 
