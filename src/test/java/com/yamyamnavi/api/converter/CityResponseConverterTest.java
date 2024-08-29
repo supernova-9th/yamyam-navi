@@ -1,10 +1,10 @@
 package com.yamyamnavi.api.converter;
 
-import com.yamyamnavi.domain.city.City;
+import com.yamyamnavi.api.response.SggResponse;
 import com.yamyamnavi.domain.city.CitySgg;
 import com.yamyamnavi.storage.city.CityEntity;
 import com.yamyamnavi.support.utils.GeometryUtils;
-import org.junit.jupiter.api.DisplayName;
+import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.locationtech.jts.geom.Coordinate;
@@ -18,13 +18,13 @@ import java.util.Arrays;
 import java.util.List;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(classes = {
         CityConverterImpl.class
 })
-class CityConverterTest {
+class CityResponseConverterTest {
 
     @Autowired
     private CityConverter cityConverter;
@@ -92,6 +92,21 @@ class CityConverterTest {
         assertEquals("강남구", cities.get(1).getSgg());
         assertEquals(latitude2, cities.get(1).getLatitude());
         assertEquals(longitude2, cities.get(1).getLongitude());
+    }
+
+    @Test
+    void CitySgg를_SggResponse로_변환한다() {
+        //given
+        CitySgg source = new CitySgg("충청", "공주시", 127.1211194, 34.63891111);
+        SggResponse expect = new SggResponse("공주시", 127.1211194, 34.63891111);
+
+        //when
+        SggResponse result = cityConverter.convertToSggResponse(source);
+
+        //then
+        assertEquals(expect.name(), result.name());
+        assertEquals(expect.longitude(), result.longitude());
+        assertEquals(expect.latitude(), result.latitude());
     }
 
 

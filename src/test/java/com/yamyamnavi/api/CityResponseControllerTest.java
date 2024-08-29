@@ -1,8 +1,8 @@
 package com.yamyamnavi.api;
 
-import com.yamyamnavi.domain.city.City;
+import com.yamyamnavi.api.response.CityResponse;
 import com.yamyamnavi.domain.city.CityService;
-import com.yamyamnavi.domain.city.Sgg;
+import com.yamyamnavi.api.response.SggResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
@@ -13,13 +13,12 @@ import org.springframework.test.web.servlet.MockMvc;
 import java.util.Arrays;
 import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.BDDMockito.given;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CityController.class)
-class CityControllerTest {
+class CityResponseControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
@@ -30,14 +29,14 @@ class CityControllerTest {
     @Test
     void 도시_목록_조회_테스트() throws Exception {
         // given
-        Sgg 강진군 = new Sgg("강진군", 126.7691972, 34.63891111);
-        Sgg 여수시 = new Sgg("여수시", 127.6643861, 34.75731111);
-        Sgg 공주시 = new Sgg("공주시", 127.1211194, 34.63891111);
-        Sgg 보령시 = new Sgg("보령시", 126.6148861, 36.330575);
+        SggResponse 강진군 = new SggResponse("강진군", 126.7691972, 34.63891111);
+        SggResponse 여수시 = new SggResponse("여수시", 127.6643861, 34.75731111);
+        SggResponse 공주시 = new SggResponse("공주시", 127.1211194, 34.63891111);
+        SggResponse 보령시 = new SggResponse("보령시", 126.6148861, 36.330575);
 
-        City 전라 = new City("전라", Arrays.asList(강진군, 여수시));
-        City 충청 = new City("충청", Arrays.asList(공주시, 보령시));
-        List<City> expect = Arrays.asList(전라, 충청);
+        CityResponse 전라 = new CityResponse("전라", Arrays.asList(강진군, 여수시));
+        CityResponse 충청 = new CityResponse("충청", Arrays.asList(공주시, 보령시));
+        List<CityResponse> expect = Arrays.asList(전라, 충청);
 
         given(cityService.getCites()).willReturn(expect);
 
