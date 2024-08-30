@@ -1,4 +1,4 @@
-package com.yamyamnavi.api.v1;
+package com.yamyamnavi.api.v1.controller;
 
 import com.yamyamnavi.api.v1.converter.ReviewConverter;
 import com.yamyamnavi.api.v1.request.ReviewCreateRequest;
@@ -8,6 +8,7 @@ import com.yamyamnavi.domain.review.ReviewService;
 import com.yamyamnavi.support.response.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -31,7 +32,7 @@ public class ReviewController {
      */
     @PostMapping
     @Operation(summary = "새로운 리뷰 생성", description = "새로운 리뷰를 생성하고 생성된 리뷰를 반환합니다.")
-    public ResultResponse<ReviewResponse> createReview(@RequestBody ReviewCreateRequest request) {
+    public ResultResponse<ReviewResponse> createReview(@RequestBody @Valid ReviewCreateRequest request) {
 
         Review review = reviewConverter.convertToReview(request);
         Review savedReview = reviewService.createReview(review);
