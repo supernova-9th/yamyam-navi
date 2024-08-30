@@ -10,8 +10,8 @@ import org.mapstruct.Mapping;
 @Mapper(componentModel = "spring")
 public interface RestaurantConverter {
 
-    @Mapping(target = "longitude", expression = "java(source.getLocation().getX())")
-    @Mapping(target = "latitude", expression = "java(source.getLocation().getY())")
+    @Mapping(target = "longitude", expression = "java(source.getLocation().getLongitude())")
+    @Mapping(target = "latitude", expression = "java(source.getLocation().getLatitude())")
     RestaurantResponse convertToRestaurantResponse(RestaurantDetail source);
 
     ReviewResponse convertToReviewResponse(Review source);

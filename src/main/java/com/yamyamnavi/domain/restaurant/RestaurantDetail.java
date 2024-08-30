@@ -15,7 +15,7 @@ public class RestaurantDetail {
     private String name;
     private String jibeonAddress;
     private String roadAddress;
-    private Point location;
+    private Location location;
     private String category;
     private Boolean isBusinessActive;
     private String telephone;
@@ -26,5 +26,16 @@ public class RestaurantDetail {
         double averageScore = reviews.stream().mapToDouble(Review::getScore).average()    .orElse(0.0);
         this.score = Math.round(averageScore * 10) / 10.0;
         this.reviews = reviews;
+    }
+
+    public RestaurantDetail(Long id, String name, String jibeonAddress, String roadAddress, Point point, String category, Boolean isBusinessActive, String telephone) {
+        this.id = id;
+        this.name = name;
+        this.jibeonAddress = jibeonAddress;
+        this.roadAddress = roadAddress;
+        this.location = new Location(point.getX(), point.getY());
+        this.category = category;
+        this.isBusinessActive = isBusinessActive;
+        this.telephone = telephone;
     }
 }
