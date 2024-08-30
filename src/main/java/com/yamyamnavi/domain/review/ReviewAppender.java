@@ -10,7 +10,6 @@ public class ReviewAppender {
 
     private final ReviewRepository reviewRepository;
 
-    @Transactional
     public Review append(Review review) {
 
         Review savedReview = reviewRepository.save(review);
