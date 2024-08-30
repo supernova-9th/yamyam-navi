@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/apis/restaurants")
+@RequestMapping("/apis/v1/restaurants")
 @Tag(name = "Restaurant API", description = "맛집 정보를 조회하는 API")
 public class RestaurantController {
 
