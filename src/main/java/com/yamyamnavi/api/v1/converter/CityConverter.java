@@ -1,6 +1,6 @@
-package com.yamyamnavi.api.converter;
+package com.yamyamnavi.api.v1.converter;
 
-import com.yamyamnavi.api.response.SggResponse;
+import com.yamyamnavi.api.v1.response.SggResponse;
 import com.yamyamnavi.domain.city.CitySgg;
 import com.yamyamnavi.storage.city.CityEntity;
 import org.mapstruct.Mapper;

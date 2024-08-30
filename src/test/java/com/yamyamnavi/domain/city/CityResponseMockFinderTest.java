@@ -1,9 +1,8 @@
 package com.yamyamnavi.domain.city;
 
-import com.yamyamnavi.api.converter.CityConverter;
-import com.yamyamnavi.api.converter.CityConverterImpl;
-import com.yamyamnavi.api.response.CityResponse;
-import com.yamyamnavi.api.response.SggResponse;
+import com.yamyamnavi.api.v1.converter.CityConverter;
+import com.yamyamnavi.api.v1.response.CityResponse;
+import com.yamyamnavi.api.v1.response.SggResponse;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;

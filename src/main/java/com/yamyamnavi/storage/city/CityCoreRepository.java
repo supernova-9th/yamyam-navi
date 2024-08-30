@@ -1,6 +1,6 @@
 package com.yamyamnavi.storage.city;
 
-import com.yamyamnavi.api.converter.CityConverter;
+import com.yamyamnavi.api.v1.converter.CityConverter;
 import com.yamyamnavi.domain.city.CityRepository;
 import com.yamyamnavi.domain.city.CitySgg;
 import lombok.RequiredArgsConstructor;

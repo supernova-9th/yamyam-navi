@@ -1,6 +1,6 @@
-package com.yamyamnavi.api;
+package com.yamyamnavi.api.v1.controller;
 
-import com.yamyamnavi.api.response.CityResponse;
+import com.yamyamnavi.api.v1.response.CityResponse;
 import com.yamyamnavi.domain.city.CityService;
 import com.yamyamnavi.support.response.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;

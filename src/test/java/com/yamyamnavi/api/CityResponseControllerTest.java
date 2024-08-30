@@ -1,8 +1,9 @@
 package com.yamyamnavi.api;
 
-import com.yamyamnavi.api.response.CityResponse;
+import com.yamyamnavi.api.v1.response.CityResponse;
+import com.yamyamnavi.api.v1.controller.CityController;
 import com.yamyamnavi.domain.city.CityService;
-import com.yamyamnavi.api.response.SggResponse;
+import com.yamyamnavi.api.v1.response.SggResponse;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
