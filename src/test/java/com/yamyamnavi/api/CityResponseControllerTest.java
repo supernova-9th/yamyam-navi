@@ -1,7 +1,7 @@
 package com.yamyamnavi.api;
 
 import com.yamyamnavi.api.v1.response.CityResponse;
-import com.yamyamnavi.api.v1.CityController;
+import com.yamyamnavi.api.v1.controller.CityController;
 import com.yamyamnavi.domain.city.CityService;
 import com.yamyamnavi.api.v1.response.SggResponse;
 import org.junit.jupiter.api.Test;
