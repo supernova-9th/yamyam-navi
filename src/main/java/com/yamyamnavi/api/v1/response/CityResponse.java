@@ -1,4 +1,4 @@
-package com.yamyamnavi.api.response;
+package com.yamyamnavi.api.v1.response;
 
 import java.util.List;
 

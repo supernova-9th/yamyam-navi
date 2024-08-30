@@ -1,6 +1,6 @@
 package com.yamyamnavi.domain.city;
 
-import com.yamyamnavi.api.response.CityResponse;
+import com.yamyamnavi.api.v1.response.CityResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
