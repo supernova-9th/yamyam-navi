@@ -10,11 +10,10 @@ import static com.yamyamnavi.storage.restaurant.QRestaurantEntity.*;
 
 @Repository
 @RequiredArgsConstructor
-public class RestaurantRepositoryImpl implements RestaurantRepositoryCustom {
+public class RestaurantRepositoryImpl {
 
     private final JPAQueryFactory queryFactory;
 
-    @Override
     public RestaurantDetail selectRestaurantDetail(Long id) {
         return queryFactory.select(Projections.constructor(RestaurantDetail.class
                 , restaurantEntity.id

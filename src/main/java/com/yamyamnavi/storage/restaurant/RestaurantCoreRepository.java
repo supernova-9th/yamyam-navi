@@ -8,10 +8,9 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class RestaurantCoreRepository implements RestaurantRepository {
-    private final RestaurantJpaRepository restaurantJpaRepository;
+    private final RestaurantRepositoryImpl restaurantRepositoryImpl;
 
-    @Override
     public RestaurantDetail find(Long id) {
-        return restaurantJpaRepository.selectRestaurantDetail(id);
+        return restaurantRepositoryImpl.selectRestaurantDetail(id);
     }
 }
