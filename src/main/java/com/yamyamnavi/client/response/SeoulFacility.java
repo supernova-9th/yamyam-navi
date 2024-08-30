@@ -22,8 +22,16 @@ public record SeoulFacility(
         String category,
 
         @JsonProperty("X")
-        Double x,
+        String x,
 
         @JsonProperty("Y")
-        Double y
-) {}
+        String y
+) {
+        public boolean isActive() {
+                return businessStatusName.equals("영업");
+        }
+
+        public String getUniqueName() {
+                return name + " " + x + " " + y;
+        }
+}
