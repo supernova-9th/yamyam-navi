@@ -33,9 +33,9 @@ public class ReviewController {
     @Operation(summary = "새로운 리뷰 생성", description = "새로운 리뷰를 생성하고 생성된 리뷰를 반환합니다.")
     public ResultResponse<ReviewResponse> createReview(@RequestBody ReviewCreateRequest request) {
 
-        Review review = reviewConverter.convertToDomain(request);
+        Review review = reviewConverter.convertToReview(request);
         Review savedReview = reviewService.createReview(review);
-        ReviewResponse response = reviewConverter.convertToResponse(savedReview);
+        ReviewResponse response = reviewConverter.convertToReviewResponse(savedReview);
 
         return new ResultResponse<>(response);
     }
