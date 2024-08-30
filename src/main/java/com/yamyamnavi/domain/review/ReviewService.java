@@ -2,6 +2,7 @@ package com.yamyamnavi.domain.review;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 @Service
 @RequiredArgsConstructor
@@ -15,6 +16,7 @@ public class ReviewService {
      * @param review 저장할 리뷰 도메인 객체
      * @return 저장된 리뷰 도메인 객체
      */
+    @Transactional
     public Review createReview(Review review) {
         return reviewAppender.append(review);
     }
