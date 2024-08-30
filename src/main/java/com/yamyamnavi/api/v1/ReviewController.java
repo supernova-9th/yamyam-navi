@@ -20,15 +20,17 @@ public class ReviewController {
     private final ReviewService reviewService;
     private final ReviewConverter reviewConverter;
 
+    /**
+     * 새로운 리뷰를 생성합니다.
+     *
+     * @param request 생성할 리뷰의 정보가 담긴 ReviewCreateRequest 객체
+     * @return 생성된 리뷰의 정보가 담긴 ReviewResponse 객체를 ResultResponse로 감싸서 반환
+     */
     @PostMapping
     public ResultResponse<ReviewResponse> createReview(@RequestBody ReviewCreateRequest request) {
 
-        // DTO -> review 도메인
         Review review = reviewConverter.convertToDomain(request);
-
         Review savedReview = reviewService.createReview(review);
-
-        // review 도메인 -> DTO
         ReviewResponse responseDto = reviewConverter.convertToDomain(savedReview);
 
         return new ResultResponse<>(responseDto);
