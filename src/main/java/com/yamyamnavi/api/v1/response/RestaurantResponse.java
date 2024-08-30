@@ -1,5 +1,9 @@
 package com.yamyamnavi.api.v1.response;
 
+import com.yamyamnavi.domain.review.Review;
+
+import java.util.List;
+
 public record RestaurantResponse(
         Long id,
         String name,
@@ -10,6 +14,7 @@ public record RestaurantResponse(
         String category,
         Boolean isBusinessActive,
         String telephone,
-        double score
+        double score,
+        List<ReviewResponse> reviews
 ) {
 }

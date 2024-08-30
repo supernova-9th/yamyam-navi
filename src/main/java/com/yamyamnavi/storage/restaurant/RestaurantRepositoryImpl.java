@@ -15,7 +15,7 @@ public class RestaurantRepositoryImpl {
     private final JPAQueryFactory queryFactory;
 
     public RestaurantDetail selectRestaurantDetail(Long id) {
-        return queryFactory.select(Projections.constructor(RestaurantDetail.class
+        return queryFactory.select(Projections.bean(RestaurantDetail.class
                 , restaurantEntity.id
                 , restaurantEntity.name
                 , restaurantEntity.jibeonAddress

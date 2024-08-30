@@ -1,10 +1,10 @@
 package com.yamyamnavi.domain.restaurant;
 
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import com.yamyamnavi.domain.review.Review;
+import lombok.*;
 import org.locationtech.jts.geom.Point;
+
+import java.util.List;
 
 @Getter
 @Setter
@@ -19,4 +19,12 @@ public class RestaurantDetail {
     private String category;
     private Boolean isBusinessActive;
     private String telephone;
+    private double score;
+    private List<Review> reviews;
+
+    public void updateReviewsAndScore(List<Review> reviews) {
+        double averageScore = reviews.stream().mapToDouble(Review::getScore).average()    .orElse(0.0);
+        this.score = Math.round(averageScore * 10) / 10.0;
+        this.reviews = reviews;
+    }
 }
