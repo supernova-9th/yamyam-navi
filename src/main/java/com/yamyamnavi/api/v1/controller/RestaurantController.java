@@ -23,6 +23,12 @@ public class RestaurantController {
     private final RestaurantService restaurantService;
     private final RestaurantConverter restaurantConverter;
 
+    /**
+     * 맛집 상세 정보를 조회합니다.
+     *
+     * @param id 조회할 맛집의 아이디
+     * @return 조회된 맛집의 상세 정보가 담긴 RestaurantResponse 객체
+     */
     @GetMapping("/{id}")
     @Operation(summary = "맛집 상세 조회", description = "맛집 상세 정보를 조회합니다.")
     public ResultResponse<RestaurantResponse> getRestaurant(@PathVariable(value = "id") Long id) {

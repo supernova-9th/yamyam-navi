@@ -12,6 +12,12 @@ public class RestaurantService {
     private final RestaurantFinder restaurantFinder;
     private final ReviewFinder reviewFinder;
 
+    /**
+     * 맛집의 상세 정보를 조회합니다.
+     *
+     * @param id 조회할 맛집 아이디
+     * @return 조회된 맛집의 상세 정보가 담긴 RestaurantDetail 객체
+     */
     @Transactional(readOnly = true)
     public RestaurantDetail getRestaurantDetail(Long id) {
         RestaurantDetail detail = restaurantFinder.find(id);
