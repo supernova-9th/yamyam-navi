@@ -1,7 +1,14 @@
 package com.yamyamnavi.support.error;
 
-public class InvalidPasswordException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class InvalidPasswordException extends YamYamException {
+
+    public InvalidPasswordException() {
+        super(HttpStatus.UNAUTHORIZED, ErrorCode.INVALID_PASSWORD);
+    }
+
     public InvalidPasswordException(String message) {
-        super(message);
+        super(HttpStatus.UNAUTHORIZED, ErrorCode.INVALID_PASSWORD, message);
     }
 }

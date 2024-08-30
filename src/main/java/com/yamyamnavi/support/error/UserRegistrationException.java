@@ -1,7 +1,14 @@
 package com.yamyamnavi.support.error;
 
-public class UserRegistrationException extends RuntimeException {
+import org.springframework.http.HttpStatus;
+
+public class UserRegistrationException extends YamYamException {
+
     public UserRegistrationException(String message) {
-        super(message);
+        super(HttpStatus.BAD_REQUEST, ErrorCode.USER_REGISTRATION_ERROR, message);
+    }
+
+    public UserRegistrationException(ErrorCode errorCode, String message) {
+        super(HttpStatus.BAD_REQUEST, errorCode, message);
     }
 }
