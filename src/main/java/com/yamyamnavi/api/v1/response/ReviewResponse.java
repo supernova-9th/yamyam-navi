@@ -1,25 +1,16 @@
 package com.yamyamnavi.api.v1.response;
 
-import com.yamyamnavi.domain.review.Review;
-import lombok.*;
+import io.swagger.v3.oas.annotations.media.Schema;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
-@Getter
-@Setter
-@Builder
-@NoArgsConstructor
-@AllArgsConstructor
-public class ReviewResponse {
+@Schema(description = "리뷰 정보 응답")
+public record ReviewResponse (
 
-    private Long id;
-
-    private Long userId;
-    private Long restaurantId;
-
-    private String content;
-    private Double score;
-
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
-}
+    @Schema(description = "아이디") Long id,
+    @Schema(description = "내용") String content,
+    @Schema(description = "평점") Double score,
+    @Schema(description = "작성자 아이디") Long userId,
+    @Schema(description = "가게 아이디") Long restaurantId,
+    @Schema(description = "작성 일시") LocalDateTime createdAt
+){}
