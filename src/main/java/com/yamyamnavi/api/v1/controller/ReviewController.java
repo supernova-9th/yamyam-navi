@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("v1/api/reviews")
+@RequestMapping("/api/v1/reviews")
 @Tag(name = "Review API", description = "리뷰 생성하는 API")
 public class ReviewController {
 
