@@ -18,7 +18,7 @@ public class Review {
     private Long restaurantId;
 
     private String content;
-    private Double score;
+    private Integer score;
 
     private LocalDateTime createdAt;
 

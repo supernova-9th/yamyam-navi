@@ -15,13 +15,10 @@ public class ReviewCoreRepository implements ReviewRepository {
 
     @Override
     public Review save(Review review) {
-        // 도메인 -> 엔티티
-        ReviewEntity reviewEntity = reviewConverter.convertToEntity(review);
 
-        // 엔티티 저장
+        ReviewEntity reviewEntity = reviewConverter.convertToEntity(review);
         ReviewEntity savedReview = reviewJpaRepository.save(reviewEntity);
 
-        // 엔티티 -> 도메인
         return reviewConverter.convertToDomain(savedReview);
     }
 }
