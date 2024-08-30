@@ -40,7 +40,7 @@ public class RestaurantEntity extends BaseEntity {
     private String telephone;
 
     @Builder
-    public RestaurantEntity(String name, String jibeonAddress, String roadAddress, Point location, String category, Boolean isBusinessActive, String uniqueName, String telephone) {
+    private RestaurantEntity(String name, String jibeonAddress, String roadAddress, Point location, String category, Boolean isBusinessActive, String uniqueName, String telephone) {
         this.name = name;
         this.jibeonAddress = jibeonAddress;
         this.roadAddress = roadAddress;
