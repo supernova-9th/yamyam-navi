@@ -6,6 +6,8 @@ import com.yamyamnavi.domain.restaurant.RestaurantDetail;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Repository;
 
+import java.util.Optional;
+
 import static com.yamyamnavi.storage.restaurant.QRestaurantEntity.*;
 
 @Repository
@@ -14,8 +16,8 @@ public class RestaurantRepositoryImpl {
 
     private final JPAQueryFactory queryFactory;
 
-    public RestaurantDetail selectRestaurantDetail(Long id) {
-        return queryFactory.select(Projections.bean(RestaurantDetail.class
+    public Optional<RestaurantDetail> selectRestaurantDetail(Long id) {
+        return Optional.ofNullable(queryFactory.select(Projections.bean(RestaurantDetail.class
                 , restaurantEntity.id
                 , restaurantEntity.name
                 , restaurantEntity.jibeonAddress
@@ -27,6 +29,6 @@ public class RestaurantRepositoryImpl {
                 ))
                 .from(restaurantEntity)
                 .where(restaurantEntity.id.eq(id))
-                .fetchOne();
+                .fetchOne());
     }
 }
