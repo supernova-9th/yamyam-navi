@@ -3,6 +3,7 @@ package com.yamyamnavi.domain.review;
 import lombok.*;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -19,6 +20,7 @@ public class Review {
     private String content;
     private Double score;
 
-    private LocalDate createdAt;
-    private LocalDate updatedAt;
+    private LocalDateTime createdAt;
+
+
 }
