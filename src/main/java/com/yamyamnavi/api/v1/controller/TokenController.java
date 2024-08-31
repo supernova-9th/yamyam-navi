@@ -1,4 +1,4 @@
-package com.yamyamnavi.api.v1;
+package com.yamyamnavi.api.v1.controller;
 
 import com.yamyamnavi.api.v1.response.TokenResponse;
 import com.yamyamnavi.domain.token.TokenIssuer;

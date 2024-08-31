@@ -1,4 +1,4 @@
-package com.yamyamnavi.api.v1;
+package com.yamyamnavi.api.v1.controller;
 
 import com.yamyamnavi.api.v1.converter.UserConverter;
 import com.yamyamnavi.api.v1.request.SignInRequest;
