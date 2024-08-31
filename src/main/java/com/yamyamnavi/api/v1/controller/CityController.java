@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/v1/apis/cities")
+@RequestMapping("/api/v1/cities")
 @Tag(name = "City API", description = "도시 정보를 조회하는 API")
 public class CityController {
 
@@ -23,8 +23,7 @@ public class CityController {
     /**
      * 도시 목록을 조회합니다.
      *
-     * @return map key - 도/시
-     *             value 시/군/구 리스트
+     * @return 도시 목록 정보가 담긴 CityResponse 객체 리스트
      */
     @GetMapping
     @Operation(summary = "도시 목록 조회", description = "도시 및 시/군/구의 리스트를 조회합니다.")
