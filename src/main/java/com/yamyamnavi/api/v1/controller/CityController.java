@@ -14,7 +14,7 @@ import java.util.List;
 
 @RestController
 @RequiredArgsConstructor
-@RequestMapping("/apis/v1/cities")
+@RequestMapping("/api/v1/cities")
 @Tag(name = "City API", description = "도시 정보를 조회하는 API")
 public class CityController {
 
