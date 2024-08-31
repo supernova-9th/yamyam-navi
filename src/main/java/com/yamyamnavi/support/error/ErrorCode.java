@@ -16,6 +16,7 @@ public enum ErrorCode {
     INVALID_PASSWORD("잘못된 비밀번호입니다."),
     INVALID_VERIFICATION_CODE("인증 코드가 올바르지 않습니다."),
     EXTERNAL_API_ERROR("외부 API 호출 중 오류가 발생했습니다."),
+    RESTAURANT_NOT_FOUND("해당 맛집 정보를 찾을 수 없습니다."),
     AUTHENTICATION_FAILED("인증에 실패했습니다.")
     ;
 
