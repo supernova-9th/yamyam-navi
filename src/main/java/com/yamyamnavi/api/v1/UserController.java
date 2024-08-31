@@ -49,3 +49,20 @@ public class UserController {
     public ResultResponse<UserResponse> changePassword(@AuthenticationPrincipal LoginUser loginUser, @Valid @RequestBody UserChangePasswordRequest request) {
         User updatedUser = userService.changePassword(loginUser.getEmail(), request.newPassword());
         return new ResultResponse<>(userConverter.convertToUserResponse(updatedUser));
+    }
+
+    /**
+     * 사용자 정보를 업데이트합니다.
+     *
+     * @param loginUser 업데이트할 사용자의 이메일
+     * @param request 업데이트할 사용자 정보를 담고 있는 객체
+     * @return 업데이트된 사용자 정보
+     */
+    @PutMapping("/me/location")
+    @Operation(summary = "위치 정보 업데이트", description = "로그인한 사용자의 위치 정보를 주소를 기반으로 업데이트합니다.")
+    public ResultResponse<UserResponse> updateLocation(@AuthenticationPrincipal LoginUser loginUser, @Valid @RequestBody UserUpdateLocationRequest request) {
+        User updatedUser = userService.updateLocation(loginUser.getEmail(), request.address());
+        return new ResultResponse<>(userConverter.convertToUserResponse(updatedUser));
+    }
+
+}

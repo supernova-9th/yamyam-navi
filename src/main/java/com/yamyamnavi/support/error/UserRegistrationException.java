@@ -9,6 +9,6 @@ public class UserRegistrationException extends YamYamException {
     }
 
     public UserRegistrationException(String message) {
-        super(message);
+        super(HttpStatus.BAD_REQUEST, ErrorCode.USER_REGISTRATION_ERROR, message);
     }
 }
