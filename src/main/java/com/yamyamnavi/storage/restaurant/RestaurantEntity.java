@@ -34,17 +34,20 @@ public class RestaurantEntity extends BaseEntity {
     @Column(nullable = false)
     private Boolean isBusinessActive;
 
+    @Column(nullable = false, unique = true, updatable = false)
+    private String uniqueName;
+
     private String telephone;
 
     @Builder
-    private RestaurantEntity(String name, String jibeonAddress, String roadAddress, Point location, String category, Boolean isBusinessActive, String telephone) {
+    private RestaurantEntity(String name, String jibeonAddress, String roadAddress, Point location, String category, Boolean isBusinessActive, String uniqueName, String telephone) {
         this.name = name;
         this.jibeonAddress = jibeonAddress;
         this.roadAddress = roadAddress;
         this.location = location;
         this.category = category;
         this.isBusinessActive = isBusinessActive;
+        this.uniqueName = uniqueName;
         this.telephone = telephone;
     }
-
 }
