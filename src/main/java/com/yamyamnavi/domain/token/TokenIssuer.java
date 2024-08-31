@@ -1,10 +1,10 @@
-package com.yamyamnavi.storage.user;
+package com.yamyamnavi.domain.token;
 
 import com.yamyamnavi.api.v1.response.TokenResponse;
 import com.yamyamnavi.domain.user.User;
 import com.yamyamnavi.domain.user.UserFinder;
 import com.yamyamnavi.security.JwtProvider;
-import com.yamyamnavi.storage.redis.UserRedisRepository;
+import com.yamyamnavi.domain.user.UserRedisRepository;
 import com.yamyamnavi.support.error.JwtValidateException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;

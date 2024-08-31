@@ -1,7 +1,7 @@
 package com.yamyamnavi.domain.user;
 
 import com.yamyamnavi.api.v1.response.TokenResponse;
-import com.yamyamnavi.storage.user.TokenIssuer;
+import com.yamyamnavi.domain.token.TokenIssuer;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;

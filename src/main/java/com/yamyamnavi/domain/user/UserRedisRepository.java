@@ -1,4 +1,4 @@
-package com.yamyamnavi.storage.redis;
+package com.yamyamnavi.domain.user;
 
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;

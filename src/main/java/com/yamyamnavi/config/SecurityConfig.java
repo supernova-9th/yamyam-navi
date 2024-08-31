@@ -1,6 +1,6 @@
 package com.yamyamnavi.config;
 
-import com.yamyamnavi.storage.user.TokenIssuer;
+import com.yamyamnavi.domain.token.TokenIssuer;
 import com.yamyamnavi.security.JwtTokenFilter;
 import com.yamyamnavi.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
