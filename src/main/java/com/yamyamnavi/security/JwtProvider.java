@@ -19,6 +19,9 @@ public class JwtProvider {
     @Value("${security.jwt.token.expire-length}")
     private long validityInMilliseconds;
 
+    @Value("${security.jwt.token.refresh-expire-length}")
+    private long refreshValidityInMilliseconds;
+
     private Key getSigningKey() {
         byte[] keyBytes = secretKey.getBytes(StandardCharsets.UTF_8);
         return Keys.hmacShaKeyFor(keyBytes);
@@ -29,7 +32,7 @@ public class JwtProvider {
     }
 
     public String createRefreshToken(String username) {
-        return createToken(username, validityInMilliseconds * 2);
+        return createToken(username, refreshValidityInMilliseconds);
     }
 
     private String createToken(String username, long validityPeriod) {
@@ -61,11 +64,11 @@ public class JwtProvider {
                     .parseClaimsJws(token);
             return true;
         } catch (JwtException | IllegalArgumentException e) {
-            throw new JwtValidateException("만료되었거나 유효하지 않은 JWT 토큰입니다.");
+            throw new JwtValidateException();
         }
     }
 
     public long getRefreshTokenValidityInMilliseconds() {
-        return validityInMilliseconds * 2;
+        return refreshValidityInMilliseconds;
     }
 }

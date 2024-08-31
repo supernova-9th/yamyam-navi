@@ -22,11 +22,8 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(name = "refresh_token")
-    private String refreshToken;
-
-    @Column(name = "is_active", nullable = false)
-    private boolean isActive;
+    @Column(nullable = false)
+    private boolean active;
 
 //    @Column(columnDefinition = "POINT SRID 4326", nullable = false)
 //    private Point location;
@@ -34,7 +31,7 @@ public class UserEntity extends BaseEntity {
     public UserEntity(String email, String password) {
         this.email = email;
         this.password = password;
-        this.isActive = false;
+        this.active = false;
     }
 
     public void setPassword(String password) {
@@ -42,10 +39,6 @@ public class UserEntity extends BaseEntity {
     }
 
     public void activate() {
-        this.isActive = true;
-    }
-
-    public void setRefreshToken(String refreshToken) {
-        this.refreshToken = refreshToken;
+        this.active = true;
     }
 }

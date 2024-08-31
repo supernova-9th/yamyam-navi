@@ -1,6 +1,7 @@
 package com.yamyamnavi.api.v1;
 
-import com.yamyamnavi.domain.user.TokenService;
+import com.yamyamnavi.api.v1.response.TokenResponse;
+import com.yamyamnavi.storage.user.TokenIssuer;
 import com.yamyamnavi.support.response.ResultResponse;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
@@ -10,11 +11,12 @@ import org.springframework.web.bind.annotation.*;
 @RequiredArgsConstructor
 public class TokenController {
 
-    private final TokenService tokenService;
+    private final TokenIssuer tokenIssuer;
 
     @PostMapping("/reissue")
-    public ResultResponse<String> reissueToken(@RequestHeader("Authorization") String refreshToken) {
-        String newAccessToken = tokenService.reissueAccessToken(refreshToken);
-        return new ResultResponse<>(newAccessToken);
+    public ResultResponse<TokenResponse> reissueToken(@RequestHeader("Authorization") String authHeader) {
+        String refreshToken = authHeader.replace("Bearer ", "");
+        TokenResponse tokenResponse = tokenIssuer.reissueAccessToken(refreshToken);
+        return new ResultResponse<>(tokenResponse);
     }
 }

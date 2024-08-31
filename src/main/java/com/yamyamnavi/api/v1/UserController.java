@@ -7,6 +7,7 @@ import com.yamyamnavi.api.v1.response.TokenResponse;
 import com.yamyamnavi.api.v1.response.UserResponse;
 import com.yamyamnavi.domain.user.UserService;
 import com.yamyamnavi.support.response.ResultResponse;
+import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,13 +20,13 @@ public class UserController {
     private final UserConverter userConverter;
 
     @PostMapping
-    public ResultResponse<UserResponse> createUser(@RequestBody UserCreateRequest request) {
+    public ResultResponse<UserResponse> createUser(@Valid @RequestBody UserCreateRequest request) {
         var user = userService.createUser(userConverter.toUser(request));
         return new ResultResponse<>(userConverter.toUserResponse(user));
     }
 
     @PostMapping("/sign-in")
-    public ResultResponse<TokenResponse> signIn(@RequestBody SignInRequest request) {
+    public ResultResponse<TokenResponse> signIn(@Valid @RequestBody SignInRequest request) {
         return new ResultResponse<>(userService.signIn(request.email(), request.password()));
     }
 }

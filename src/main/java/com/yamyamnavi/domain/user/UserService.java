@@ -1,10 +1,39 @@
 package com.yamyamnavi.domain.user;
 
 import com.yamyamnavi.api.v1.response.TokenResponse;
+import com.yamyamnavi.storage.user.TokenIssuer;
+import lombok.RequiredArgsConstructor;
+import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-public interface UserService {
+@Service
+@RequiredArgsConstructor
+public class UserService {
 
-    User createUser(User user);
+    private final UserAppender userAppender;
+    private final UserLoginProcessor userLoginProcessor;
+    private final UserValidator userValidator;
+    private final UserFinder userFinder;
+    private final TokenIssuer tokenIssuer;
 
-    TokenResponse signIn(String email, String password);
+    @Transactional
+    public User createUser(User user) {
+        userValidator.validateEmail(user.getEmail());
+        return userAppender.append(user);
+    }
+
+    @Transactional
+    public TokenResponse signIn(String email, String password) {
+        return userLoginProcessor.process(email, password);
+    }
+
+    @Transactional(readOnly = true)
+    public User getUserByEmail(String email) {
+        return userFinder.findByEmailOrThrow(email);
+    }
+
+    @Transactional
+    public void logout(String email) {
+        tokenIssuer.revokeToken(email);
+    }
 }

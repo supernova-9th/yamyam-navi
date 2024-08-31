@@ -1,5 +1,6 @@
 package com.yamyamnavi.config;
 
+import com.yamyamnavi.storage.user.TokenIssuer;
 import com.yamyamnavi.security.JwtTokenFilter;
 import com.yamyamnavi.security.JwtProvider;
 import lombok.RequiredArgsConstructor;
@@ -32,6 +33,7 @@ public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
     private final AuthenticationEntryPoint authenticationEntryPoint;
+    private final TokenIssuer tokenIssuer;
 
     @Bean
     public PasswordEncoder passwordEncoder() {

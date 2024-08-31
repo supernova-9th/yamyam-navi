@@ -1,18 +1,16 @@
-package com.yamyamnavi.config;
+package com.yamyamnavi.storage.redis;
 
+import lombok.RequiredArgsConstructor;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.stereotype.Service;
+import org.springframework.stereotype.Repository;
 
 import java.util.concurrent.TimeUnit;
 
-@Service
-public class RedisService {
+@Repository
+@RequiredArgsConstructor
+public class UserRedisRepository {
 
     private final RedisTemplate<String, String> redisTemplate;
-
-    public RedisService(RedisTemplate<String, String> redisTemplate) {
-        this.redisTemplate = redisTemplate;
-    }
 
     public void setRefreshToken(String userId, String refreshToken, long ttl) {
         redisTemplate.opsForValue().set(userId, refreshToken, ttl, TimeUnit.MILLISECONDS);

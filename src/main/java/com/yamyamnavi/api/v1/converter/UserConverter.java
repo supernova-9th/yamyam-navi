@@ -12,7 +12,6 @@ public interface UserConverter {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "active", constant = "false")
-    @Mapping(target = "refreshToken", ignore = true)
     User toUser(UserCreateRequest request);
 
     UserResponse toUserResponse(User user);

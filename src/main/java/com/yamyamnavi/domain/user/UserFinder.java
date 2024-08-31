@@ -10,8 +10,8 @@ public class UserFinder {
 
     private final UserRepository userRepository;
 
-    public User findByEmail(String email) {
+    public User findByEmailOrThrow(String email) {
         return userRepository.findByEmail(email)
-                .orElseThrow(() -> new UserNotFoundException("해당 이메일로 사용자를 찾을 수 없습니다: " + email));
+                .orElseThrow(UserNotFoundException::new);
     }
 }
