@@ -6,7 +6,6 @@ import java.time.LocalDateTime;
 
 @Getter
 @Setter
-@Builder
 @NoArgsConstructor
 @AllArgsConstructor
 public class Review {
@@ -16,4 +15,13 @@ public class Review {
     private String content;
     private Integer score;
     private LocalDateTime createdAt;
+
+    public Review(Long userId, String content, Integer score, Long restaurantId, LocalDateTime createdAt) {
+        this.userId = userId;
+        this.restaurantId = restaurantId;
+        this.content = content;
+        this.score = score;
+        this.createdAt = createdAt;
+    }
+
 }

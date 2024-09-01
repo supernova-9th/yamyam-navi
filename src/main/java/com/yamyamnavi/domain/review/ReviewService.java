@@ -2,12 +2,15 @@ package com.yamyamnavi.domain.review;
 
 import com.yamyamnavi.domain.restaurant.RestaurantDetail;
 import com.yamyamnavi.domain.restaurant.RestaurantFinder;
+import com.yamyamnavi.domain.restaurant.RestaurantReviewUpdater;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 
+@Slf4j
 @Service
 @RequiredArgsConstructor
 public class ReviewService {
@@ -15,6 +18,7 @@ public class ReviewService {
     private final ReviewAppender reviewAppender;
     private final RestaurantFinder restaurantFinder;
     private final ReviewFinder reviewFinder;
+    private final RestaurantReviewUpdater restaurantReviewUpdater;
 
     /**
      * 새로운 리뷰를 생성하고 저장합니다.
@@ -25,15 +29,19 @@ public class ReviewService {
      */
     @Transactional
     public Review createReview(Review review) {
-        // 가게 정보 조회
-        RestaurantDetail detail = restaurantFinder.find(review.getRestaurantId());
+            // 가게 정보 조회
+            RestaurantDetail detail = restaurantFinder.find(review.getRestaurantId());
 
-        // 해당 가게의 모든 리뷰 조회 및 평균 점수 계산
-        List<Review> reviews = reviewFinder.findAll(review.getRestaurantId());
-        detail.updateReviewsAndScore(reviews);
+            // 해당 가게의 모든 리뷰 조회
+            List<Review> reviews = reviewFinder.findAll(review.getRestaurantId());
 
-        // 리뷰 정보 저장
-        return reviewAppender.append(review);
+            // 평균 점수 계산 및 저장
+            detail.updateReviewsAndScore(reviews);
+            restaurantReviewUpdater.updateReview(review.getRestaurantId(), detail);
+
+            // 리뷰 정보 저장
+            return reviewAppender.appendWithRetry(review);
+
     }
 
 }
