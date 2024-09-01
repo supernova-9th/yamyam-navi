@@ -21,7 +21,7 @@ public class RestaurantService {
     @Transactional(readOnly = true)
     public RestaurantDetail getRestaurantDetail(Long id) {
         RestaurantDetail detail = restaurantFinder.find(id);
-        detail.updateReviewsAndScore(reviewFinder.findAll(id));
+        detail.updateReviews(reviewFinder.findAll(id));
         return detail;
     }
 
