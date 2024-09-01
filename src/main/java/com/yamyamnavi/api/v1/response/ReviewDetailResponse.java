@@ -5,7 +5,7 @@ import io.swagger.v3.oas.annotations.media.Schema;
 import java.time.LocalDateTime;
 
 @Schema(description = "리뷰 정보 응답")
-public record ReviewResponse(
+public record ReviewDetailResponse(
         @Schema(description = "아이디") Long id,
         @Schema(description = "내용") String content,
         @Schema(description = "평점") Double score,

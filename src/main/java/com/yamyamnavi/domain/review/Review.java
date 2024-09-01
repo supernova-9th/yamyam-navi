@@ -16,4 +16,5 @@ public class Review {
     private String content;
     private Integer score;
     private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
 }
