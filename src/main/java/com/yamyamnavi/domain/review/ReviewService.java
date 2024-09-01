@@ -40,7 +40,7 @@ public class ReviewService {
             restaurantReviewUpdater.updateReview(review.getRestaurantId(), detail);
 
             // 리뷰 정보 저장
-            return reviewAppender.appendWithRetry(review);
+            return reviewAppender.append(review);
 
     }
 
