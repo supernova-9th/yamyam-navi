@@ -22,13 +22,11 @@ public class RestaurantDetail {
     private double score;
     private List<Review> reviews;
 
-    public void updateReviewsAndScore(List<Review> reviews) {
-        double averageScore = reviews.stream().mapToDouble(Review::getScore).average()    .orElse(0.0);
-        this.score = Math.round(averageScore * 10) / 10.0;
+    public void updateReviews(List<Review> reviews) {
         this.reviews = reviews;
     }
 
-    public RestaurantDetail(Long id, String name, String jibeonAddress, String roadAddress, Point point, String category, Boolean isBusinessActive, String telephone) {
+    public RestaurantDetail(Long id, String name, String jibeonAddress, String roadAddress, Point point, String category, Boolean isBusinessActive, String telephone, double score) {
         this.id = id;
         this.name = name;
         this.jibeonAddress = jibeonAddress;
@@ -37,5 +35,6 @@ public class RestaurantDetail {
         this.category = category;
         this.isBusinessActive = isBusinessActive;
         this.telephone = telephone;
+        this.score = score;
     }
 }
