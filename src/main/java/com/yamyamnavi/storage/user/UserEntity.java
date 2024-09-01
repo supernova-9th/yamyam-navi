@@ -1,21 +1,23 @@
 package com.yamyamnavi.storage.user;
 
-import com.yamyamnavi.storage.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Builder;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import org.locationtech.jts.geom.Point;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Entity
-@Table(name = "user")
-public class UserEntity extends BaseEntity {
+@Table(name = "users")
+@EntityListeners(AuditingEntityListener.class)
+public class UserEntity {
 
+    @Id
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -25,13 +27,25 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)
     private boolean active;
 
-//    @Column(columnDefinition = "POINT SRID 4326", nullable = false)
-//    private Point location;
+    @Column(columnDefinition = "POINT SRID 4326")
+    private Point location;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
+    public UserEntity(String email, String password, Point location) {
+        this.email = email;
+        this.password = password;
+        this.active = false;
+        this.location = location;
+    }
 
     public UserEntity(String email, String password) {
         this.email = email;
         this.password = password;
-        this.active = false;
     }
 
     public void setPassword(String password) {
@@ -40,5 +54,9 @@ public class UserEntity extends BaseEntity {
 
     public void activate() {
         this.active = true;
+    }
+
+    public void setLocation(Point location) {
+        this.location = location;
     }
 }

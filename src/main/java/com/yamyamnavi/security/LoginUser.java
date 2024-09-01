@@ -1,19 +1,19 @@
 package com.yamyamnavi.security;
 
 import com.yamyamnavi.domain.user.User;
-import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
 
-@Getter
-@RequiredArgsConstructor
 public class LoginUser implements UserDetails {
 
     private final User user;
+
+    public LoginUser(User user) {
+        this.user = user;
+    }
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
@@ -47,10 +47,10 @@ public class LoginUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return true;
+        return user.isActive();
     }
 
-    public Long getId() {
-        return user.getId();
+    public String getEmail() {
+        return user.getEmail();
     }
 }

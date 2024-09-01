@@ -6,25 +6,29 @@ import com.yamyamnavi.domain.user.UserFinder;
 import com.yamyamnavi.security.JwtProvider;
 import com.yamyamnavi.domain.user.UserRedisRepository;
 import com.yamyamnavi.support.error.JwtValidateException;
-import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 import org.springframework.transaction.annotation.Transactional;
 
 @Component
-@RequiredArgsConstructor
 public class TokenIssuer {
 
     private final JwtProvider jwtProvider;
     private final UserFinder userFinder;
     private final UserRedisRepository userRedisRepository;
 
+    public TokenIssuer(JwtProvider jwtProvider, UserFinder userFinder, UserRedisRepository userRedisRepository) {
+        this.jwtProvider = jwtProvider;
+        this.userFinder = userFinder;
+        this.userRedisRepository = userRedisRepository;
+    }
+
     @Transactional
     public TokenResponse createToken(String email) {
         String accessToken = jwtProvider.createAccessToken(email);
         String refreshToken = jwtProvider.createRefreshToken(email);
 
-        User user = userFinder.findByEmailOrThrow(email);
-        userRedisRepository.setRefreshToken(user.getId().toString(), refreshToken, jwtProvider.getRefreshTokenValidityInMilliseconds());
+        userFinder.findByEmailOrThrow(email);
+        userRedisRepository.setRefreshToken(email, refreshToken, jwtProvider.getRefreshTokenValidityInMilliseconds());
 
         return new TokenResponse(accessToken, refreshToken);
     }
@@ -36,9 +40,7 @@ public class TokenIssuer {
         }
 
         String email = jwtProvider.getEmailFromToken(refreshToken);
-        User user = userFinder.findByEmailOrThrow(email);
-
-        String storedRefreshToken = userRedisRepository.getRefreshToken(user.getId().toString());
+        String storedRefreshToken = userRedisRepository.getRefreshToken(email);
         if (!refreshToken.equals(storedRefreshToken)) {
             throw new JwtValidateException();
         }
@@ -49,7 +51,6 @@ public class TokenIssuer {
 
     @Transactional
     public void revokeToken(String email) {
-        User user = userFinder.findByEmailOrThrow(email);
-        userRedisRepository.deleteRefreshToken(user.getId().toString());
+        userRedisRepository.deleteRefreshToken(email);
     }
 }

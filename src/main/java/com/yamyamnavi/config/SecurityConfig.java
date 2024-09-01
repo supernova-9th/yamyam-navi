@@ -28,12 +28,15 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
-@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
     private final AuthenticationEntryPoint authenticationEntryPoint;
-    private final TokenIssuer tokenIssuer;
+
+    public SecurityConfig(UserDetailsService userDetailsService, AuthenticationEntryPoint authenticationEntryPoint) {
+        this.userDetailsService = userDetailsService;
+        this.authenticationEntryPoint = authenticationEntryPoint;
+    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -77,7 +80,7 @@ public class SecurityConfig {
                         exceptionHandling.authenticationEntryPoint(authenticationEntryPoint)
                 )
                 .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/v1/users/sign-in", "/api/v1/users", "/api/v1/tokens/reissue").permitAll()
+                        .requestMatchers("/api/v1/users/sign-in", "/api/v1/users", "/api/v1/tokens/reissue", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()
                 )
                 .build();

@@ -14,11 +14,15 @@ import org.springframework.web.filter.OncePerRequestFilter;
 
 import java.io.IOException;
 
-@RequiredArgsConstructor
 public class JwtTokenFilter extends OncePerRequestFilter {
 
     private final JwtProvider jwtProvider;
     private final UserDetailsService userDetailsService;
+
+    public JwtTokenFilter(JwtProvider jwtProvider, UserDetailsService userDetailsService) {
+        this.jwtProvider = jwtProvider;
+        this.userDetailsService = userDetailsService;
+    }
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
@@ -27,8 +31,8 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         String token = getTokenFromRequest(request);
 
         if (token != null && jwtProvider.validateToken(token)) {
-            String username = jwtProvider.getEmailFromToken(token);
-            UserDetails userDetails = userDetailsService.loadUserByUsername(username);
+            String email = jwtProvider.getEmailFromToken(token);
+            UserDetails userDetails = userDetailsService.loadUserByUsername(email);
             UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
                     userDetails, null, userDetails.getAuthorities());
             authentication.setDetails(new WebAuthenticationDetailsSource().buildDetails(request));
@@ -37,6 +41,12 @@ public class JwtTokenFilter extends OncePerRequestFilter {
         filterChain.doFilter(request, response);
     }
 
+    /**
+     * HTTP 요청에서 JWT 토큰을 추출합니다.
+     *
+     * @param request HTTP 요청
+     * @return 추출된 JWT 토큰, 없으면 null
+     */
     private String getTokenFromRequest(HttpServletRequest request) {
         String bearerToken = request.getHeader("Authorization");
         if (bearerToken != null && bearerToken.startsWith("Bearer ")) {

@@ -12,15 +12,33 @@ public class UserRedisRepository {
 
     private final RedisTemplate<String, String> redisTemplate;
 
-    public void setRefreshToken(String userId, String refreshToken, long ttl) {
-        redisTemplate.opsForValue().set(userId, refreshToken, ttl, TimeUnit.MILLISECONDS);
+    /**
+     * 사용자의 리프레시 토큰을 Redis에 저장합니다.
+     *
+     * @param email 사용자 이메일
+     * @param refreshToken 리프레시 토큰
+     * @param ttl 토큰의 유효 기간 (밀리초)
+     */
+    public void setRefreshToken(String email, String refreshToken, long ttl) {
+        redisTemplate.opsForValue().set(email, refreshToken, ttl, TimeUnit.MILLISECONDS);
     }
 
-    public String getRefreshToken(String userId) {
-        return redisTemplate.opsForValue().get(userId);
+    /**
+     * 사용자의 리프레시 토큰을 Redis에서 조회합니다.
+     *
+     * @param email 사용자 이메일
+     * @return 저장된 리프레시 토큰
+     */
+    public String getRefreshToken(String email) {
+        return redisTemplate.opsForValue().get(email);
     }
 
-    public void deleteRefreshToken(String userId) {
-        redisTemplate.delete(userId);
+    /**
+     * 사용자의 리프레시 토큰을 Redis에서 삭제합니다.
+     *
+     * @param email 사용자 이메일
+     */
+    public void deleteRefreshToken(String email) {
+        redisTemplate.delete(email);
     }
 }
