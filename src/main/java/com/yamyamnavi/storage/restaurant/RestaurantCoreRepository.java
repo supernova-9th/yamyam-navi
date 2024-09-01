@@ -14,4 +14,9 @@ public class RestaurantCoreRepository implements RestaurantRepository {
     public RestaurantDetail find(Long id) {
         return restaurantRepositoryImpl.selectRestaurantDetail(id).orElseThrow(RestaurantNotFoundException::new);
     }
+
+    @Override
+    public RestaurantDetail update(Long id, RestaurantDetail restaurantDetail) {
+        return restaurantRepositoryImpl.updateReview(id, restaurantDetail).orElseThrow(RestaurantNotFoundException::new);
+    }
 }
