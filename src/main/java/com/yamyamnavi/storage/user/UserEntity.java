@@ -3,6 +3,7 @@ package com.yamyamnavi.storage.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.Setter;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -46,16 +47,23 @@ public class UserEntity {
         this.longitude = longitude;
     }
 
-    public void changePassword(String password) {
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
         this.password = password;
     }
 
-    public void activate() {
-        this.active = true;
+    public void setActive(boolean active) {
+        this.active = active;
     }
 
-    public void updateLocation(Double latitude, Double longitude) {
+    public void setLatitude(Double latitude) {
         this.latitude = latitude;
+    }
+
+    public void setLongitude(Double longitude) {
         this.longitude = longitude;
     }
 }
