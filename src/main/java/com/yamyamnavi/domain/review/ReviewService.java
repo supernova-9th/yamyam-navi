@@ -17,7 +17,6 @@ public class ReviewService {
 
     private final ReviewAppender reviewAppender;
     private final RestaurantFinder restaurantFinder;
-    private final ReviewFinder reviewFinder;
     private final RestaurantReviewUpdater restaurantReviewUpdater;
 
     /**
@@ -29,14 +28,11 @@ public class ReviewService {
      */
     @Transactional
     public Review createReview(Review review) {
+
             // 가게 정보 조회
             RestaurantDetail detail = restaurantFinder.find(review.getRestaurantId());
 
-            // 해당 가게의 모든 리뷰 조회
-            List<Review> reviews = reviewFinder.findAll(review.getRestaurantId());
-
-            // 평균 점수 계산 및 저장
-            detail.updateReviewsAndScore(reviews);
+            // 리뷰 업데이트
             restaurantReviewUpdater.updateReview(review.getRestaurantId(), detail);
 
             // 리뷰 정보 저장
