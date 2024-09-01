@@ -18,6 +18,7 @@ public class ReviewService {
 
     /**
      * 새로운 리뷰를 생성하고 저장합니다.
+     * 가게의 모든 리뷰를 조회하여 평균 점수를 계산하고 업데이트합니다.
      *
      * @param review 저장할 리뷰 도메인 객체
      * @return 저장된 리뷰 도메인 객체
