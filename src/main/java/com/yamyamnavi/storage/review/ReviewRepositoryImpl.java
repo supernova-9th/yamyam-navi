@@ -23,7 +23,9 @@ public class ReviewRepositoryImpl {
                 , reviewEntity.content
                 , reviewEntity.score
                 , reviewEntity.userId
-                , reviewEntity.createdAt))
+                , reviewEntity.restaurantId
+                , reviewEntity.createdAt
+                , reviewEntity.updatedAt))
                 .from(reviewEntity)
                 .where(reviewEntity.restaurantId.eq(restaurantId))
                 .orderBy(reviewEntity.createdAt.desc())
