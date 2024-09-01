@@ -17,9 +17,6 @@ import java.time.LocalDateTime;
 public class UserEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -30,10 +27,10 @@ public class UserEntity {
     private boolean active;
 
     @Column(nullable = false)
-    private double latitude;
+    private Double latitude;
 
     @Column(nullable = false)
-    private double longitude;
+    private Double longitude;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -41,7 +38,7 @@ public class UserEntity {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    public UserEntity(String email, String password, double latitude, double longitude) {
+    public UserEntity(String email, String password, Double latitude, Double longitude) {
         this.email = email;
         this.password = password;
         this.active = false;
@@ -49,15 +46,15 @@ public class UserEntity {
         this.longitude = longitude;
     }
 
-    public void changePassword(String newPassword) {
-        this.password = newPassword;
+    public void changePassword(String password) {
+        this.password = password;
     }
 
     public void activate() {
         this.active = true;
     }
 
-    public void updateLocation(double latitude, double longitude) {
+    public void updateLocation(Double latitude, Double longitude) {
         this.latitude = latitude;
         this.longitude = longitude;
     }
