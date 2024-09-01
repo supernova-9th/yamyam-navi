@@ -26,6 +26,7 @@ public class RestaurantRepositoryImpl {
                 , restaurantEntity.category
                 , restaurantEntity.isBusinessActive
                 , restaurantEntity.telephone
+                , restaurantEntity.score
                 ))
                 .from(restaurantEntity)
                 .where(restaurantEntity.id.eq(id))

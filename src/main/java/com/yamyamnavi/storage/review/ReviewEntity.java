@@ -18,7 +18,7 @@ public class ReviewEntity extends BaseEntity {
     @Column(nullable = false)
     private String content;
     @Column(nullable = false)
-    private Integer score;
+    private Double score;
 
     @Column(nullable = false, updatable = false)
     private Long userId;
@@ -26,7 +26,7 @@ public class ReviewEntity extends BaseEntity {
     private Long restaurantId;
 
     @Builder
-    private ReviewEntity(String content, Integer score, Long userId, Long restaurantId) {
+    private ReviewEntity(String content, Double score, Long userId, Long restaurantId) {
         this.content = content;
         this.score = score;
         this.userId = userId;

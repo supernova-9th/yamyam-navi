@@ -16,6 +16,6 @@ public record RestaurantResponse(
         @Schema(description = "영업 상태") Boolean isBusinessActive,
         @Schema(description = "전화번호") String telephone,
         @Schema(description = "평점") double score,
-        @Schema(description = "리뷰 목록") List<ReviewResponse> reviews
+        @Schema(description = "리뷰 목록") List<ReviewDetailResponse> reviews
 ) {
 }
