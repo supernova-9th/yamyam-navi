@@ -1,17 +1,19 @@
 package com.yamyamnavi.api.v1.controller;
 
 import com.yamyamnavi.api.v1.converter.UserConverter;
-import com.yamyamnavi.api.v1.request.SignInRequest;
+import com.yamyamnavi.api.v1.request.UserChangePasswordRequest;
 import com.yamyamnavi.api.v1.request.UserCreateRequest;
-import com.yamyamnavi.api.v1.request.UserUpdateRequest;
-import com.yamyamnavi.api.v1.response.TokenResponse;
+import com.yamyamnavi.api.v1.request.UserUpdateLocationRequest;
 import com.yamyamnavi.api.v1.response.UserResponse;
+import com.yamyamnavi.domain.user.User;
 import com.yamyamnavi.domain.user.UserService;
+import com.yamyamnavi.security.LoginUser;
 import com.yamyamnavi.support.response.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -42,23 +44,25 @@ public class UserController {
      * @param request 로그인에 필요한 정보를 담은 객체
      * @return 로그인 성공 시 발급되는 토큰 정보
      */
-    @PostMapping("/sign-in")
-    @Operation(summary = "사용자 로그인", description = "사용자 로그인을 처리하고 토큰을 발급합니다.")
-    public ResultResponse<TokenResponse> signIn(@Valid @RequestBody SignInRequest request) {
-        return new ResultResponse<>(userService.signIn(request.email(), request.password()));
+    @PutMapping("/me/password")
+    @Operation(summary = "비밀번호 변경", description = "로그인한 사용자의 비밀번호를 변경합니다.")
+    public ResultResponse<UserResponse> changePassword(@AuthenticationPrincipal LoginUser loginUser, @Valid @RequestBody UserChangePasswordRequest request) {
+        User updatedUser = userService.changePassword(loginUser.getEmail(), request.newPassword());
+        return new ResultResponse<>(userConverter.convertToUserResponse(updatedUser));
     }
 
     /**
      * 사용자 정보를 업데이트합니다.
      *
-     * @param email 업데이트할 사용자의 이메일
+     * @param loginUser 업데이트할 사용자의 이메일
      * @param request 업데이트할 사용자 정보를 담고 있는 객체
      * @return 업데이트된 사용자 정보
      */
-    @PutMapping("/{email}")
-    @Operation(summary = "사용자 정보 업데이트", description = "사용자 정보를 업데이트합니다.")
-    public ResultResponse<UserResponse> updateUser(@PathVariable String email, @Valid @RequestBody UserUpdateRequest request) {
-        var updatedUser = userService.updateUser(email, request);
+    @PutMapping("/me/location")
+    @Operation(summary = "위치 정보 업데이트", description = "로그인한 사용자의 위치 정보를 주소를 기반으로 업데이트합니다.")
+    public ResultResponse<UserResponse> updateLocation(@AuthenticationPrincipal LoginUser loginUser, @Valid @RequestBody UserUpdateLocationRequest request) {
+        User updatedUser = userService.updateLocation(loginUser.getEmail(), request.address());
         return new ResultResponse<>(userConverter.convertToUserResponse(updatedUser));
     }
+
 }

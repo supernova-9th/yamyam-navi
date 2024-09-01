@@ -7,6 +7,7 @@ import org.springframework.stereotype.Component;
 @Component
 @RequiredArgsConstructor
 public class UserValidator {
+
     private final UserRepository userRepository;
 
     /**
@@ -14,8 +15,12 @@ public class UserValidator {
      *
      * @param email 검사할 이메일
      * @throws UserRegistrationException 이미 존재하는 이메일인 경우
+     * @throws IllegalArgumentException 이메일이 null이거나 빈 문자열인 경우
      */
     public void validateEmail(String email) {
+        if (email == null || email.trim().isEmpty()) {
+            throw new IllegalArgumentException();
+        }
         if (userRepository.existsByEmail(email)) {
             throw new UserRegistrationException();
         }

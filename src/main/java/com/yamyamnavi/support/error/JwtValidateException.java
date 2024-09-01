@@ -8,10 +8,6 @@ public class JwtValidateException extends YamYamException {
         super(HttpStatus.UNAUTHORIZED, errorCode);
     }
 
-    public JwtValidateException(ErrorCode errorCode, String message) {
-        super(HttpStatus.UNAUTHORIZED, errorCode, message);
-    }
-
     public JwtValidateException() {
         super(HttpStatus.UNAUTHORIZED, ErrorCode.INVALID_TOKEN);
     }

@@ -27,7 +27,6 @@ public class TokenIssuer {
         String accessToken = jwtProvider.createAccessToken(email);
         String refreshToken = jwtProvider.createRefreshToken(email);
 
-        userFinder.findByEmailOrThrow(email);
         userRedisRepository.setRefreshToken(email, refreshToken, jwtProvider.getRefreshTokenValidityInMilliseconds());
 
         return new TokenResponse(accessToken, refreshToken);
@@ -41,6 +40,11 @@ public class TokenIssuer {
 
         String email = jwtProvider.getEmailFromToken(refreshToken);
         String storedRefreshToken = userRedisRepository.getRefreshToken(email);
+
+        if (storedRefreshToken == null) {
+            throw new JwtValidateException();
+        }
+
         if (!refreshToken.equals(storedRefreshToken)) {
             throw new JwtValidateException();
         }

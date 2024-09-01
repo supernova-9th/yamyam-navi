@@ -61,9 +61,11 @@ public class UserCoreRepository implements UserRepository {
      */
     @Override
     @Transactional
-    public void update(User user) {
+    public User update(User user) {
         UserEntity entity = userJpaRepository.findByEmail(user.getEmail())
                 .orElseThrow(UserNotFoundException::new);
         userConverter.updateEntityFromDomain(user, entity);
+        UserEntity updatedEntity = userJpaRepository.save(entity);
+        return userConverter.convertToDomain(updatedEntity);
     }
 }

@@ -15,7 +15,7 @@ public class UserAppender {
     }
 
     public User append(User user) {
-        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.changePassword(passwordEncoder.encode(user.getPassword()));
         return userRepository.save(user);
     }
 }

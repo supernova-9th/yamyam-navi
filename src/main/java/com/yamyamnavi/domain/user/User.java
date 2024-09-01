@@ -2,7 +2,6 @@ package com.yamyamnavi.domain.user;
 
 import lombok.Builder;
 import lombok.Getter;
-import org.locationtech.jts.geom.Point;
 
 @Getter
 @Builder
@@ -12,17 +11,19 @@ public class User {
     private String email;
     private String password;
     private boolean active;
-    private Point location;
+    private double latitude;
+    private double longitude;
 
-    public void setPassword(String password) {
-        this.password = password;
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
     }
 
     public void activate() {
         this.active = true;
     }
 
-    public void setLocation(Point location) {
-        this.location = location;
+    public void updateLocation(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 }

@@ -44,7 +44,7 @@ class CityResponseControllerTest {
         //when
 
         // when & then
-        mockMvc.perform(get("/v1/apis/cities")
+        mockMvc.perform(get("/api/v1/cities")
                         .contentType(MediaType.APPLICATION_JSON))
                 .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(status().isOk())

@@ -16,10 +16,4 @@ public record UserResponse(
         @Schema(description = "사용자 위치의 경도", example = "126.9272")
         Double longitude
 )  {
-        public UserResponse {
-        }
-
-        public UserResponse(String email, boolean active) {
-                this(email, active, null, null);
-        }
 }

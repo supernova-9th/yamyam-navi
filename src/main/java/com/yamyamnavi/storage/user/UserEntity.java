@@ -3,7 +3,6 @@ package com.yamyamnavi.storage.user;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.locationtech.jts.geom.Point;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
@@ -13,11 +12,14 @@ import java.time.LocalDateTime;
 @Getter
 @NoArgsConstructor
 @Entity
-@Table(name = "users")
+@Table(name = "user")
 @EntityListeners(AuditingEntityListener.class)
 public class UserEntity {
 
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    private Long id;
+
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -27,8 +29,11 @@ public class UserEntity {
     @Column(nullable = false)
     private boolean active;
 
-    @Column(columnDefinition = "POINT SRID 4326")
-    private Point location;
+    @Column(nullable = false)
+    private double latitude;
+
+    @Column(nullable = false)
+    private double longitude;
 
     @CreatedDate
     private LocalDateTime createdAt;
@@ -36,27 +41,24 @@ public class UserEntity {
     @LastModifiedDate
     private LocalDateTime updatedAt;
 
-    public UserEntity(String email, String password, Point location) {
+    public UserEntity(String email, String password, double latitude, double longitude) {
         this.email = email;
         this.password = password;
         this.active = false;
-        this.location = location;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
-    public UserEntity(String email, String password) {
-        this.email = email;
-        this.password = password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void changePassword(String newPassword) {
+        this.password = newPassword;
     }
 
     public void activate() {
         this.active = true;
     }
 
-    public void setLocation(Point location) {
-        this.location = location;
+    public void updateLocation(double latitude, double longitude) {
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 }

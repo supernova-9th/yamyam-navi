@@ -10,5 +10,5 @@ public interface UserRepository {
 
     boolean existsByEmail(String email);
 
-    void update(User user);
+    User update(User user);
 }

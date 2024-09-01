@@ -5,37 +5,39 @@ import com.yamyamnavi.api.v1.response.UserResponse;
 import com.yamyamnavi.domain.user.User;
 import com.yamyamnavi.storage.user.UserEntity;
 import com.yamyamnavi.support.utils.GeometryUtils;
-import org.locationtech.jts.geom.Point;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.MappingTarget;
+import org.springframework.stereotype.Component;
 
-
+@Component
 @Mapper(componentModel = "spring", imports = GeometryUtils.class)
 public interface UserConverter {
 
     /**
      * UserCreateRequest를 User 도메인 객체로 변환합니다.
      */
-    @Mapping(target = "location", expression = "java(GeometryUtils.getPoint(request.longitude(), request.latitude()))")
+    @Mapping(target = "id", ignore = true)
+    @Mapping(target = "active", constant = "false")
     User convertToUser(UserCreateRequest request);
 
     /**
      * User 도메인 객체를 UserResponse로 변환합니다.
      */
-    @Mapping(target = "latitude", expression = "java(user.getLocation() != null ? user.getLocation().getY() : null)")
-    @Mapping(target = "longitude", expression = "java(user.getLocation() != null ? user.getLocation().getX() : null)")
     UserResponse convertToUserResponse(User user);
 
     /**
      * User 도메인 객체를 UserEntity로 변환합니다.
      */
-    @Mapping(target = "location", source = "location")
+    @Mapping(target = "latitude", source = "latitude")
+    @Mapping(target = "longitude", source = "longitude")
     UserEntity convertToEntity(User user);
 
     /**
      * UserEntity를 User 도메인 객체로 변환합니다.
      */
+    @Mapping(target = "latitude", source = "latitude")
+    @Mapping(target = "longitude", source = "longitude")
     User convertToDomain(UserEntity entity);
 
     /**
@@ -43,10 +45,4 @@ public interface UserConverter {
      */
     void updateEntityFromDomain(User user, @MappingTarget UserEntity entity);
 
-    /**
-     * 위도와 경도로 Point 객체를 생성합니다.
-     */
-    default Point createPoint(double latitude, double longitude) {
-        return GeometryUtils.getPoint(longitude, latitude);
-    }
 }

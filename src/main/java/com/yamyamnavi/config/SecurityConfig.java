@@ -1,8 +1,7 @@
 package com.yamyamnavi.config;
 
-import com.yamyamnavi.domain.token.TokenIssuer;
-import com.yamyamnavi.security.JwtTokenFilter;
 import com.yamyamnavi.security.JwtProvider;
+import com.yamyamnavi.security.JwtTokenFilter;
 import lombok.RequiredArgsConstructor;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -28,15 +27,11 @@ import java.util.List;
 
 @Configuration
 @EnableWebSecurity
+@RequiredArgsConstructor
 public class SecurityConfig {
 
     private final UserDetailsService userDetailsService;
     private final AuthenticationEntryPoint authenticationEntryPoint;
-
-    public SecurityConfig(UserDetailsService userDetailsService, AuthenticationEntryPoint authenticationEntryPoint) {
-        this.userDetailsService = userDetailsService;
-        this.authenticationEntryPoint = authenticationEntryPoint;
-    }
 
     @Bean
     public PasswordEncoder passwordEncoder() {
@@ -81,6 +76,7 @@ public class SecurityConfig {
                 )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/v1/users/sign-in", "/api/v1/users", "/api/v1/tokens/reissue", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/v1/users/me").authenticated()
                         .anyRequest().authenticated()
                 )
                 .build();
