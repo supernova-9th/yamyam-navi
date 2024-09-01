@@ -31,4 +31,30 @@ public class RestaurantRepositoryImpl {
                 .where(restaurantEntity.id.eq(id))
                 .fetchOne());
     }
+
+    public Optional<RestaurantDetail> updateReview(Long id, RestaurantDetail restaurantDetail) {
+        long updatedRows = queryFactory.update(restaurantEntity)
+                .set(restaurantEntity.score, restaurantDetail.getScore())
+                .where(restaurantEntity.id.eq(id))
+                .execute();
+
+        if (updatedRows > 0) {
+            return Optional.ofNullable(queryFactory.select(Projections.constructor(RestaurantDetail.class
+                            , restaurantEntity.id
+                            , restaurantEntity.name
+                            , restaurantEntity.jibeonAddress
+                            , restaurantEntity.roadAddress
+                            , restaurantEntity.location
+                            , restaurantEntity.category
+                            , restaurantEntity.isBusinessActive
+                            , restaurantEntity.telephone
+                            , restaurantEntity.score
+                    ))
+                    .from(restaurantEntity)
+                    .where(restaurantEntity.id.eq(id))
+                    .fetchOne());
+        } else {
+            return Optional.empty();
+        }
+    }
 }
