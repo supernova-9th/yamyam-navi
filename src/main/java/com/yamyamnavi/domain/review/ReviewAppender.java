@@ -1,6 +1,5 @@
 package com.yamyamnavi.domain.review;
 
-import jakarta.transaction.Transactional;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Component;
 
