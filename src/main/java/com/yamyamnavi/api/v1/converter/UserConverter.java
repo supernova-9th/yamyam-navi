@@ -36,5 +36,11 @@ public interface UserConverter {
     @Mapping(target = "longitude", source = "longitude")
     User convertToDomain(UserEntity entity);
 
-    void updateEntityFromDomain(User user, @MappingTarget UserEntity entity);
+    default void updateEntityFromDomain(User user, @MappingTarget UserEntity entity) {
+        entity.setEmail(user.getEmail());
+        entity.setPassword(user.getPassword());
+        entity.setActive(user.isActive());
+        entity.setLatitude(user.getLatitude());
+        entity.setLongitude(user.getLongitude());
+    }
 }
