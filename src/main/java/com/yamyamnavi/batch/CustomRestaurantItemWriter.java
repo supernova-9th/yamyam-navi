@@ -23,8 +23,8 @@ public class CustomRestaurantItemWriter implements ItemWriter<RestaurantEntity> 
     @Override
     @Transactional
     public void write(Chunk<? extends RestaurantEntity> chunk) throws Exception {
-        String sql = "INSERT INTO restaurant (name, jibeon_address, road_address, location, category, is_business_active, unique_name, telephone, created_at, updated_at) " +
-                "VALUES (?, ?, ?, ST_GeomFromText(?, 4326), ?, ?, ?, ?, ?, ?) " +
+        String sql = "INSERT INTO restaurant (name, jibeon_address, road_address, location, category, is_business_active, unique_name, telephone, score, created_at, updated_at) " +
+                "VALUES (?, ?, ?, ST_GeomFromText(?, 4326), ?, ?, ?, ?, ?, ?, ?) " +
                 "ON DUPLICATE KEY UPDATE is_business_active = VALUES(is_business_active), updated_at = VALUES(updated_at)";
 
         jdbcTemplate.batchUpdate(sql, new BatchPreparedStatementSetter() {
@@ -41,8 +41,9 @@ public class CustomRestaurantItemWriter implements ItemWriter<RestaurantEntity> 
                 ps.setBoolean(6, restaurant.getIsBusinessActive());
                 ps.setString(7, restaurant.getUniqueName());
                 ps.setString(8, restaurant.getTelephone());
-                ps.setTimestamp(9, Timestamp.valueOf(now));
+                ps.setDouble(9, 0.0);
                 ps.setTimestamp(10, Timestamp.valueOf(now));
+                ps.setTimestamp(11, Timestamp.valueOf(now));
             }
 
             @Override
