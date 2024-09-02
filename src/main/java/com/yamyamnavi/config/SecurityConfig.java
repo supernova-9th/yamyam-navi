@@ -46,7 +46,9 @@ public class SecurityConfig {
     @Bean
     public AuthenticationProvider authenticationProvider() {
         DaoAuthenticationProvider authProvider = new DaoAuthenticationProvider();
-        authProvider.setUserDetailsService(userDetailsService);
+        if (userDetailsService != null) {
+            authProvider.setUserDetailsService(userDetailsService);
+        }
         authProvider.setPasswordEncoder(passwordEncoder());
         return authProvider;
     }
@@ -63,23 +65,28 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http, JwtTokenFilter jwtTokenFilter) throws Exception {
-        return http
+        http
                 .csrf(AbstractHttpConfigurer::disable)
                 .formLogin(AbstractHttpConfigurer::disable)
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .cors(AbstractHttpConfigurer::disable)
-                .exceptionHandling(exceptionHandling ->
-                        exceptionHandling.authenticationEntryPoint(authenticationEntryPoint)
-                )
-                .authorizeHttpRequests(authorize -> authorize
-                        .requestMatchers("/api/v1/users/sign-in", "/api/v1/users", "/api/v1/tokens/reissue", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                        .requestMatchers("/api/v1/users/me").authenticated()
-                        .anyRequest().authenticated()
-                )
-                .build();
+                .cors(AbstractHttpConfigurer::disable);
+
+        if (authenticationEntryPoint != null) {
+            http.exceptionHandling(exceptionHandling ->
+                    exceptionHandling.authenticationEntryPoint(authenticationEntryPoint)
+            );
+        }
+
+        http.authorizeHttpRequests(authorize -> authorize
+                .requestMatchers("/api/v1/users/sign-in", "/api/v1/users", "/api/v1/tokens/reissue", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                .requestMatchers("/api/v1/users/me").authenticated()
+                .anyRequest().authenticated()
+        );
+
+        return http.build();
     }
 
     @Bean
@@ -96,4 +103,5 @@ public class SecurityConfig {
 
         return source;
     }
+
 }
