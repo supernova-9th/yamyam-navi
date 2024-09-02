@@ -1,7 +1,10 @@
 package com.yamyamnavi.domain.restaurant;
 
+import com.yamyamnavi.api.v1.request.RestaurantSearchRequest;
 import com.yamyamnavi.domain.review.ReviewFinder;
+import com.yamyamnavi.support.response.PageResponse;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -25,4 +28,8 @@ public class RestaurantService {
         return detail;
     }
 
+    @Transactional(readOnly = true)
+    public PageResponse<Restaurant> getRestaurants(RestaurantSearchRequest searchRequest, PageRequest pageRequest) {
+        return restaurantFinder.findRestaurants(searchRequest, pageRequest);
+    }
 }
