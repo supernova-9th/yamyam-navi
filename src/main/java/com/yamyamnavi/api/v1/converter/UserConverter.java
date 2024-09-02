@@ -11,6 +11,7 @@ import org.mapstruct.MappingTarget;
 @Mapper(componentModel = "spring")
 public interface UserConverter {
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "email", source = "email")
     @Mapping(target = "password", source = "password")
     @Mapping(target = "active", constant = "false")
@@ -18,8 +19,10 @@ public interface UserConverter {
     @Mapping(target = "longitude", source = "longitude")
     User convertToUser(UserCreateRequest request);
 
+    @Mapping(target = "id", source = "id")
     UserResponse convertToUserResponse(User user);
 
+    @Mapping(target = "id", ignore = true)
     @Mapping(target = "email", source = "email")
     @Mapping(target = "password", source = "password")
     @Mapping(target = "active", source = "active")
@@ -29,6 +32,7 @@ public interface UserConverter {
     @Mapping(target = "updatedAt", ignore = true)
     UserEntity convertToEntity(User user);
 
+    @Mapping(target = "id", source = "id")
     @Mapping(target = "email", source = "email")
     @Mapping(target = "password", source = "password")
     @Mapping(target = "active", source = "active")

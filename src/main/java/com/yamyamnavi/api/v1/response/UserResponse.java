@@ -4,6 +4,9 @@ import io.swagger.v3.oas.annotations.media.Schema;
 
 public record UserResponse(
 
+        @Schema(description = "사용자 ID", example = "1L")
+        Long id,
+
         @Schema(description = "사용자 이메일", example = "user@example.com")
         String email,
 
