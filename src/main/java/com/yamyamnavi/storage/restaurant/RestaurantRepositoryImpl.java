@@ -76,7 +76,6 @@ public class RestaurantRepositoryImpl {
                 , restaurantEntity.roadAddress
                 , restaurantEntity.location
                 , restaurantEntity.category
-                , restaurantEntity.isBusinessActive
                 , restaurantEntity.telephone
                 , restaurantEntity.score
                 ))
