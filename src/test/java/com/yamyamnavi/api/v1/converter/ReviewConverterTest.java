@@ -31,7 +31,7 @@ class ReviewConverterTest {
                 .content("goood")
                 .score(3)
                 .build();
-        Review expect = new Review(1L, 1L, 1L,"goood", 3, LocalDateTime.now());
+        Review expect = new Review(1L, 1L, 1L,"goood", 3, LocalDateTime.now(), LocalDateTime.now());
 
         //when
         Review result = reviewConverter.convertToReview(request);
@@ -46,7 +46,7 @@ class ReviewConverterTest {
     @Test
     void Review를_ReviewResponse로_변환한다() {
         //given
-        Review review = new Review(1L, 1L, 1L, "goood", 4, LocalDateTime.now());
+        Review review = new Review(1L, 1L, 1L, "goood", 4, LocalDateTime.now(), LocalDateTime.now());
         ReviewResponse expect = new ReviewResponse(1L, "goood", 4,1L, 1L, LocalDateTime.now());
 
         //when

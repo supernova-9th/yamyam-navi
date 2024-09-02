@@ -43,8 +43,8 @@ class ReviewControllerTest {
     void 리뷰_생성_API() throws Exception {
         // given
         ReviewCreateRequest request = new ReviewCreateRequest(1L, 1L, "goood", 4);
-        Review review  = new Review(1L, 1L, 1L, "goood", 4, LocalDateTime.now());
-        Review savedReview  = new Review(1L, 1L, 1L, "goood", 4, LocalDateTime.now());
+        Review review  = new Review(1L, 1L, 1L, "goood", 4, LocalDateTime.now(), LocalDateTime.now());
+        Review savedReview  = new Review(1L, 1L, 1L, "goood", 4, LocalDateTime.now(), LocalDateTime.now());
         ReviewResponse response = new ReviewResponse(1L, "goood", 4, 1L, 1L, LocalDateTime.now());
 
         given(reviewConverter.convertToReview(request)).willReturn(review);
