@@ -34,7 +34,7 @@ public class ReviewService {
         Review savedReview = reviewAppender.append(review);
 
         // 리뷰 업데이트
-        restaurantReviewUpdater.updateReview(review.getRestaurantId(), detail, review.getScore());
+        restaurantReviewUpdater.updateReview(review.getRestaurantId(), detail);
 
         // 리뷰 정보 저장
         return savedReview;
