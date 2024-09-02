@@ -11,6 +11,7 @@ public interface ReviewConverter {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "createdAt", ignore = true)
+    @Mapping(target = "updatedAt", ignore = true)
     Review convertToReview(ReviewCreateRequest request);
 
     ReviewResponse convertToReviewResponse(Review review);

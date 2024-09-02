@@ -30,7 +30,7 @@ class ReviewConverterTest {
                 .content("goood")
                 .score(4)
                 .build();
-        Review expect = new Review(1L, 1L, 1L, "goood", 4, LocalDateTime.now());
+        Review expect = new Review(1L, 1L, 1L, "goood", 4, LocalDateTime.now(), LocalDateTime.now());
 
         //when
         Review result = reviewConverter.convertToDomain(reviewEntity);
@@ -51,7 +51,7 @@ class ReviewConverterTest {
                 .content("goood")
                 .score(4)
                 .build();
-        Review expect = new Review(1L, 1L, 1L, "goood", 4, LocalDateTime.now());
+        Review expect = new Review(1L, 1L, 1L, "goood", 4, LocalDateTime.now(), LocalDateTime.now());
 
         //when
         Review result = reviewConverter.convertToDomain(reviewEntity);
