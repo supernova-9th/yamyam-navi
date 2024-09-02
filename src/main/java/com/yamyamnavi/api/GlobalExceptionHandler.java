@@ -27,10 +27,16 @@ public class GlobalExceptionHandler {
         return ResponseEntity.status(ex.getStatusCode()).body(new ResultResponse<>(HttpStatus.BAD_REQUEST, sb.toString().trim()));
     }
 
+//    @ExceptionHandler(value = Exception.class)
+//    public ResponseEntity<ResultResponse<Void>> unhandledException(Exception e, HttpServletRequest request) {
+//        log.error("error occur {}", request.getRequestURI());
+//
+//        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResultResponse<>(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage()));
+//    }
+
     @ExceptionHandler(value = Exception.class)
     public ResponseEntity<ResultResponse<Void>> unhandledException(Exception e, HttpServletRequest request) {
-        log.error("error occur {}", request.getRequestURI());
-
+        log.error("error occur {} : {}", request.getRequestURI(), e.getMessage(), e);
         return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(new ResultResponse<>(HttpStatus.INTERNAL_SERVER_ERROR, e.getMessage()));
     }
 

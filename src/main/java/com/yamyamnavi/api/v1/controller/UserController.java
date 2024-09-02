@@ -1,9 +1,11 @@
 package com.yamyamnavi.api.v1.controller;
 
 import com.yamyamnavi.api.v1.converter.UserConverter;
+import com.yamyamnavi.api.v1.request.SignInRequest;
 import com.yamyamnavi.api.v1.request.UserChangePasswordRequest;
 import com.yamyamnavi.api.v1.request.UserCreateRequest;
 import com.yamyamnavi.api.v1.request.UserUpdateLocationRequest;
+import com.yamyamnavi.api.v1.response.TokenResponse;
 import com.yamyamnavi.api.v1.response.UserResponse;
 import com.yamyamnavi.domain.user.User;
 import com.yamyamnavi.domain.user.UserService;
@@ -44,6 +46,13 @@ public class UserController {
      * @param request 로그인에 필요한 정보를 담은 객체
      * @return 로그인 성공 시 발급되는 토큰 정보
      */
+    @PostMapping("/sign-in")
+    @Operation(summary = "사용자 로그인", description = "사용자 로그인을 처리합니다.")
+    public ResultResponse<TokenResponse> signIn(@Valid @RequestBody SignInRequest request) {
+        TokenResponse tokenResponse = userService.signIn(request.email(), request.password());
+        return new ResultResponse<>(tokenResponse);
+    }
+
     @PutMapping("/me/password")
     @Operation(summary = "비밀번호 변경", description = "로그인한 사용자의 비밀번호를 변경합니다.")
     public ResultResponse<UserResponse> changePassword(@AuthenticationPrincipal LoginUser loginUser, @Valid @RequestBody UserChangePasswordRequest request) {
