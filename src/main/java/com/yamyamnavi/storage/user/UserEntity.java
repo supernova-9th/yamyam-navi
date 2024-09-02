@@ -2,11 +2,12 @@ package com.yamyamnavi.storage.user;
 
 import com.yamyamnavi.storage.BaseEntity;
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 @Getter
-@NoArgsConstructor
+@NoArgsConstructor(access = AccessLevel.PROTECTED)
 @Entity
 @Table(name = "user")
 public class UserEntity extends BaseEntity {
