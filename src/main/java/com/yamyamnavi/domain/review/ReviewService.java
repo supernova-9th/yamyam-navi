@@ -27,14 +27,17 @@ public class ReviewService {
     @Transactional
     public Review createReview(Review review) {
 
-            // 가게 정보 조회
-            RestaurantDetail detail = restaurantFinder.find(review.getRestaurantId());
+        // 가게 정보 조회
+        RestaurantDetail detail = restaurantFinder.find(review.getRestaurantId());
 
-            // 리뷰 업데이트
-            restaurantReviewUpdater.updateReview(review.getRestaurantId(), detail);
+        // 리뷰 저장
+        Review savedReview = reviewAppender.append(review);
 
-            // 리뷰 정보 저장
-            return reviewAppender.append(review);
+        // 리뷰 업데이트
+        restaurantReviewUpdater.updateReview(review.getRestaurantId(), detail, review.getScore());
+
+        // 리뷰 정보 저장
+        return savedReview;
 
     }
 

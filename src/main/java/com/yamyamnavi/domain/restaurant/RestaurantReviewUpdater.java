@@ -14,13 +14,13 @@ public class RestaurantReviewUpdater {
     private final RestaurantRepository restaurantRepository;
     private final ReviewFinder reviewFinder;
 
-    public RestaurantDetail updateReview(Long id, RestaurantDetail restaurantDetail) {
+    public RestaurantDetail updateReview(Long id, RestaurantDetail restaurantDetail, Integer newScore) {
 
         // 해당 가게의 모든 리뷰 조회
         List<Review> reviews = reviewFinder.findAll(id);
 
         // 평균 점수 계산 및 저장
-        restaurantDetail.updateReviewsAndScore(reviews);
+        restaurantDetail.updateReviewsAndScore(reviews, newScore);
 
         // 해당 가게 리뷰 업데이트
         RestaurantDetail updateReview = restaurantRepository.update(id, restaurantDetail);

@@ -26,10 +26,22 @@ public class RestaurantDetail {
         this.reviews = reviews;
     }
 
-    public void updateReviewsAndScore(List<Review> reviews) {
-        double averageScore = reviews.stream().mapToDouble(Review::getScore).average().orElse(0.0);
-        this.score = Math.round(averageScore * 10) / 10.0;
-        this.reviews = reviews;
+    /**
+     * 기존 리뷰 목록과 새로운 리뷰 점수를 기반으로 평점을 업데이트하는 메서드.
+     *
+     * 리뷰 목록이 있으면 모든 리뷰의 평균 점수를 계산하여 소수점 첫째 자리에서 반올림해 설정합니다.
+     * 리뷰가 없으면 새로운 리뷰 점수만으로 평점을 설정하며, 이 역시 소수점 첫째 자리에서 반올림됩니다.
+     *
+     * @param reviews  기존 리뷰 목록 (리뷰가 없을 수도 있음)
+     * @param newScore 새로 추가된 리뷰의 점수
+     */
+    public void updateReviewsAndScore(List<Review> reviews, Integer newScore) {
+        if (reviews != null && !reviews.isEmpty()) {
+            double totalScore = reviews.stream().mapToDouble(Review::getScore).sum();
+            this.score = Math.round((totalScore / reviews.size()) * 10) / 10.0;
+        } else {
+            this.score = Math.round(newScore * 10) / 10.0;
+        }
     }
 
     public RestaurantDetail(Long id, String name, String jibeonAddress, String roadAddress, Point point, String category, Boolean isBusinessActive, String telephone, double score) {
