@@ -75,11 +75,4 @@ public class UserController {
         return new ResultResponse<>(userConverter.convertToUserResponse(updatedUser));
     }
 
-    @GetMapping("/me")
-    @Operation(summary = "현재 사용자 정보 조회", description = "로그인한 사용자의 정보를 조회합니다.")
-    public ResultResponse<UserResponse> getCurrentUser(@AuthenticationPrincipal LoginUser loginUser) {
-        User user = userService.getUserByEmail(loginUser.getEmail());
-        return new ResultResponse<>(userConverter.convertToUserResponse(user));
-    }
-
 }
