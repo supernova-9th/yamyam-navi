@@ -24,8 +24,10 @@ public class UserService {
     private final PasswordEncoder passwordEncoder;
 
     @Transactional
-    public User createUser(User user) {
+    public User createUser(User user, String address) {
         userValidator.validateEmail(user.getEmail());
+        GeoPoint geoPoint = geocodeService.getGeoPointFromAddress(address);
+        user.updateLocation(geoPoint.latitude(), geoPoint.longitude());
         return userAppender.append(user);
     }
 

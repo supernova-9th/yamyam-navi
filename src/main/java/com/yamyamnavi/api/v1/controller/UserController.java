@@ -36,8 +36,9 @@ public class UserController {
     @PostMapping
     @Operation(summary = "사용자 생성", description = "새로운 사용자를 생성합니다.")
     public ResultResponse<UserResponse> createUser(@Valid @RequestBody UserCreateRequest request) {
-        var user = userService.createUser(userConverter.convertToUser(request));
-        return new ResultResponse<>(userConverter.convertToUserResponse(user));
+        User user = userConverter.convertToUser(request);
+        User createdUser = userService.createUser(user, request.address());
+        return new ResultResponse<>(userConverter.convertToUserResponse(createdUser));
     }
 
     /**
@@ -72,6 +73,13 @@ public class UserController {
     public ResultResponse<UserResponse> updateLocation(@AuthenticationPrincipal LoginUser loginUser, @Valid @RequestBody UserUpdateLocationRequest request) {
         User updatedUser = userService.updateLocation(loginUser.getEmail(), request.address());
         return new ResultResponse<>(userConverter.convertToUserResponse(updatedUser));
+    }
+
+    @GetMapping("/me")
+    @Operation(summary = "현재 사용자 정보 조회", description = "로그인한 사용자의 정보를 조회합니다.")
+    public ResultResponse<UserResponse> getCurrentUser(@AuthenticationPrincipal LoginUser loginUser) {
+        User user = userService.getUserByEmail(loginUser.getEmail());
+        return new ResultResponse<>(userConverter.convertToUserResponse(user));
     }
 
 }

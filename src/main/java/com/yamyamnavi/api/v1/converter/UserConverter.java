@@ -15,8 +15,8 @@ public interface UserConverter {
     @Mapping(target = "email", source = "email")
     @Mapping(target = "password", source = "password")
     @Mapping(target = "active", constant = "false")
-    @Mapping(target = "latitude", source = "latitude")
-    @Mapping(target = "longitude", source = "longitude")
+    @Mapping(target = "latitude", ignore = true)
+    @Mapping(target = "longitude", ignore = true)
     User convertToUser(UserCreateRequest request);
 
     @Mapping(target = "id", source = "id")

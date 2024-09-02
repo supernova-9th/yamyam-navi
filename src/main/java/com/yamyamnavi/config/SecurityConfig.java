@@ -72,19 +72,18 @@ public class SecurityConfig {
                 .addFilterBefore(jwtTokenFilter, UsernamePasswordAuthenticationFilter.class)
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
-                .cors(AbstractHttpConfigurer::disable);
+                .cors(AbstractHttpConfigurer::disable)
+                .authorizeHttpRequests(authorize -> authorize
+                        .requestMatchers("/api/v1/users/sign-in", "/api/v1/users", "/api/v1/tokens/reissue", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/v1/users/me").authenticated()
+                        .anyRequest().authenticated()
+                );
 
         if (authenticationEntryPoint != null) {
             http.exceptionHandling(exceptionHandling ->
                     exceptionHandling.authenticationEntryPoint(authenticationEntryPoint)
             );
         }
-
-        http.authorizeHttpRequests(authorize -> authorize
-                .requestMatchers("/api/v1/users/sign-in", "/api/v1/users", "/api/v1/tokens/reissue", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
-                .requestMatchers("/api/v1/users/me").authenticated()
-                .anyRequest().authenticated()
-        );
 
         return http.build();
     }
