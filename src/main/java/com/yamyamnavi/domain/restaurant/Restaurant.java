@@ -7,7 +7,6 @@ import lombok.Setter;
 import org.locationtech.jts.geom.Point;
 
 @Getter
-@Setter
 @NoArgsConstructor
 @AllArgsConstructor
 public class Restaurant {
