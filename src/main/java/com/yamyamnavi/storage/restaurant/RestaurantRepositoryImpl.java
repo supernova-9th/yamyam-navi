@@ -48,6 +48,7 @@ public class RestaurantRepositoryImpl {
                         , restaurantEntity.score))
                 .from(restaurantEntity)
                 .where(restaurantEntity.location.isNotNull()
+                        .and(restaurantEntity.isBusinessActive.isTrue())
                         .and(distanceExpression));
 
         if (searchRequest.sort() == RestaurantSort.RATING) {
