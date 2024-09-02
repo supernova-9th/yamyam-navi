@@ -26,6 +26,12 @@ public class RestaurantDetail {
         this.reviews = reviews;
     }
 
+    public void updateReviewsAndScore(List<Review> reviews) {
+        double averageScore = reviews.stream().mapToDouble(Review::getScore).average()    .orElse(0.0);
+        this.score = Math.round(averageScore * 10) / 10.0;
+        this.reviews = reviews;
+    }
+
     public RestaurantDetail(Long id, String name, String jibeonAddress, String roadAddress, Point point, String category, Boolean isBusinessActive, String telephone, double score) {
         this.id = id;
         this.name = name;
