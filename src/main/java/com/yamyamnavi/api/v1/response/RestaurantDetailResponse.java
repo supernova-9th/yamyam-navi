@@ -5,7 +5,7 @@ import java.util.List;
 import io.swagger.v3.oas.annotations.media.Schema;
 
 @Schema(description = "맛집 정보 응답")
-public record RestaurantResponse(
+public record RestaurantDetailResponse(
         @Schema(description = "아이디") Long id,
         @Schema(description = "매장명") String name,
         @Schema(description = "지번 주소") String jibeonAddress,
