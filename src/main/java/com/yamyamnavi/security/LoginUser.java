@@ -9,10 +9,20 @@ import java.util.Collections;
 
 public class LoginUser implements UserDetails {
 
-    private final User user;
+    private final Long id;
+    private final String email;
+    private final String password;
+    private final boolean active;
 
     public LoginUser(User user) {
-        this.user = user;
+        this.id = user.getId();
+        this.email = user.getEmail();
+        this.password = user.getPassword();
+        this.active = user.isActive();
+    }
+
+    public Long getId() {
+        return id;
     }
 
     @Override
@@ -22,12 +32,12 @@ public class LoginUser implements UserDetails {
 
     @Override
     public String getPassword() {
-        return user.getPassword();
+        return password;
     }
 
     @Override
     public String getUsername() {
-        return user.getEmail();
+        return email;
     }
 
     @Override
@@ -47,10 +57,10 @@ public class LoginUser implements UserDetails {
 
     @Override
     public boolean isEnabled() {
-        return user.isActive();
+        return active;
     }
 
     public String getEmail() {
-        return user.getEmail();
+        return email;
     }
 }

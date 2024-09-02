@@ -1,23 +1,16 @@
 package com.yamyamnavi.storage.user;
 
+import com.yamyamnavi.storage.BaseEntity;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import org.springframework.data.annotation.CreatedDate;
-import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
-
-import java.time.LocalDateTime;
 
 @Getter
 @NoArgsConstructor
 @Entity
 @Table(name = "user")
-@EntityListeners(AuditingEntityListener.class)
-public class UserEntity {
+public class UserEntity extends BaseEntity {
 
-    @Id
     @Column(nullable = false, unique = true)
     private String email;
 
@@ -32,12 +25,6 @@ public class UserEntity {
 
     @Column(nullable = false)
     private Double longitude;
-
-    @CreatedDate
-    private LocalDateTime createdAt;
-
-    @LastModifiedDate
-    private LocalDateTime updatedAt;
 
     public UserEntity(String email, String password, Double latitude, Double longitude) {
         this.email = email;

@@ -5,6 +5,7 @@ import com.yamyamnavi.domain.location.GeoPoint;
 import com.yamyamnavi.domain.location.GeocodeService;
 import com.yamyamnavi.domain.token.TokenIssuer;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,6 +21,7 @@ public class UserService {
     private final UserRepository userRepository;
     private final UserUpdater userUpdater;
     private final GeocodeService geocodeService;
+    private final PasswordEncoder passwordEncoder;
 
     @Transactional
     public User createUser(User user) {
@@ -37,6 +39,11 @@ public class UserService {
         return userFinder.findByEmailOrThrow(email);
     }
 
+    @Transactional(readOnly = true)
+    public User getUserById(Long id) {
+        return userFinder.findByIdOrThrow(id);
+    }
+
     @Transactional
     public void logout(String email) {
         tokenIssuer.revokeToken(email);
@@ -45,7 +52,8 @@ public class UserService {
     @Transactional
     public User changePassword(String email, String newPassword) {
         User user = userFinder.findByEmailOrThrow(email);
-        return userUpdater.changePassword(user, newPassword);
+        String encodedPassword = passwordEncoder.encode(newPassword);
+        return userUpdater.changePassword(user, encodedPassword);
     }
 
     @Transactional

@@ -21,4 +21,9 @@ public class UserFinder {
         return userRepository.findByEmail(email)
                 .orElseThrow(UserNotFoundException::new);
     }
+
+    public User findByIdOrThrow(Long id) {
+        return userRepository.findById(id)
+                .orElseThrow(UserNotFoundException::new);
+    }
 }

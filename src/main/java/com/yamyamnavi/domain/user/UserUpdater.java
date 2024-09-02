@@ -8,8 +8,8 @@ import org.springframework.stereotype.Component;
 public class UserUpdater {
     private final UserRepository userRepository;
 
-    public User changePassword(User user, String newPassword) {
-        user.changePassword(newPassword);
+    public User changePassword(User user, String encryptedNewPassword) {
+        user.changePassword(encryptedNewPassword);
         return userRepository.update(user);
     }
 

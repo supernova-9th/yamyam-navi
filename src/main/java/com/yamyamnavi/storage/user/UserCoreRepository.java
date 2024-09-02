@@ -43,6 +43,12 @@ public class UserCoreRepository implements UserRepository {
                 .map(userConverter::convertToDomain);
     }
 
+    @Override
+    public Optional<User> findById(Long id) {
+        return userJpaRepository.findById(id)
+                .map(userConverter::convertToDomain);
+    }
+
     /**
      * 이메일이 존재하는지 확인합니다.
      *
@@ -62,7 +68,7 @@ public class UserCoreRepository implements UserRepository {
     @Override
     @Transactional
     public User update(User user) {
-        UserEntity entity = userJpaRepository.findByEmail(user.getEmail())
+        UserEntity entity = userJpaRepository.findById(user.getId())
                 .orElseThrow(UserNotFoundException::new);
         userConverter.updateEntityFromDomain(user, entity);
         UserEntity updatedEntity = userJpaRepository.save(entity);
