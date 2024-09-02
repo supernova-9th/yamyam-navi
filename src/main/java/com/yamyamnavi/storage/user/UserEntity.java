@@ -1,35 +1,69 @@
 package com.yamyamnavi.storage.user;
 
-import com.yamyamnavi.storage.BaseEntity;
-import jakarta.persistence.Column;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
-import lombok.AccessLevel;
-import lombok.Builder;
+import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.locationtech.jts.geom.Point;
+import lombok.Setter;
+import org.springframework.data.annotation.CreatedDate;
+import org.springframework.data.annotation.LastModifiedDate;
+import org.springframework.data.jpa.domain.support.AuditingEntityListener;
+
+import java.time.LocalDateTime;
 
 @Getter
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
 @Entity
 @Table(name = "user")
-public class UserEntity extends BaseEntity {
+@EntityListeners(AuditingEntityListener.class)
+public class UserEntity {
 
-    @Column(nullable = false)
+    @Id
+    @Column(nullable = false, unique = true)
     private String email;
 
     @Column(nullable = false)
     private String password;
 
-    @Column(columnDefinition = "POINT SRID 4326", nullable = false)
-    private Point location;
+    @Column(nullable = false)
+    private boolean active;
 
-    @Builder
-    private UserEntity(String email, String password, Point location) {
+    @Column(nullable = false)
+    private Double latitude;
+
+    @Column(nullable = false)
+    private Double longitude;
+
+    @CreatedDate
+    private LocalDateTime createdAt;
+
+    @LastModifiedDate
+    private LocalDateTime updatedAt;
+
+    public UserEntity(String email, String password, Double latitude, Double longitude) {
         this.email = email;
         this.password = password;
-        this.location = location;
+        this.active = false;
+        this.latitude = latitude;
+        this.longitude = longitude;
     }
 
+    public void setEmail(String email) {
+        this.email = email;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public void setLatitude(Double latitude) {
+        this.latitude = latitude;
+    }
+
+    public void setLongitude(Double longitude) {
+        this.longitude = longitude;
+    }
 }
