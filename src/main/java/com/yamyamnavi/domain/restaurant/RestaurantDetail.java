@@ -49,4 +49,15 @@ public class RestaurantDetail {
         this.telephone = telephone;
         this.score = score;
     }
+
+    public RestaurantDetail(Long id, String name, String jibeonAddress, String roadAddress, Point point, String category, String telephone, double score) {
+        this.id = id;
+        this.name = name;
+        this.jibeonAddress = jibeonAddress;
+        this.roadAddress = roadAddress;
+        this.location = new Location(point.getX(), point.getY());
+        this.category = category;
+        this.telephone = telephone;
+        this.score = score;
+    }
 }
