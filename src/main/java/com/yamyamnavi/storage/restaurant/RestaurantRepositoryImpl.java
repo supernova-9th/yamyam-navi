@@ -33,7 +33,7 @@ public class RestaurantRepositoryImpl {
                 .fetchOne());
     }
 
-    public Optional<RestaurantDetail> updateReview(Long id, RestaurantDetail restaurantDetail) {
+    public Optional<RestaurantDetail> updateScore(Long id, RestaurantDetail restaurantDetail) {
         long updatedRows = queryFactory.update(restaurantEntity)
                 .set(restaurantEntity.score, restaurantDetail.getScore())
                 .where(restaurantEntity.id.eq(id))
