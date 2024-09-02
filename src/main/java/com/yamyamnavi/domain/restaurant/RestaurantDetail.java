@@ -27,7 +27,7 @@ public class RestaurantDetail {
     }
 
     public void updateReviewsAndScore(List<Review> reviews) {
-        double averageScore = reviews.stream().mapToDouble(Review::getScore).average()    .orElse(0.0);
+        double averageScore = reviews.stream().mapToDouble(Review::getScore).average().orElse(0.0);
         this.score = Math.round(averageScore * 10) / 10.0;
         this.reviews = reviews;
     }
