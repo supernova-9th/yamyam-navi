@@ -2,6 +2,7 @@ package com.yamyamnavi.storage.restaurant;
 
 import com.querydsl.core.types.Projections;
 import com.querydsl.core.types.dsl.BooleanExpression;
+import com.querydsl.core.types.dsl.ComparablePath;
 import com.querydsl.core.types.dsl.Expressions;
 import com.querydsl.core.types.dsl.NumberTemplate;
 import com.querydsl.jpa.impl.JPAQuery;
@@ -39,12 +40,12 @@ public class RestaurantRepositoryImpl {
         BooleanExpression distanceExpression = location.loe(searchRequest.range() * 1000);
 
         JPAQuery<Restaurant> query = queryFactory.select(Projections.constructor(Restaurant.class
+                        , restaurantEntity.id
                         , restaurantEntity.name
                         , restaurantEntity.jibeonAddress
                         , restaurantEntity.roadAddress
                         , restaurantEntity.location
                         , restaurantEntity.category
-                        , restaurantEntity.isBusinessActive
                         , restaurantEntity.score))
                 .from(restaurantEntity)
                 .where(restaurantEntity.location.isNotNull()
@@ -76,6 +77,7 @@ public class RestaurantRepositoryImpl {
                 , restaurantEntity.roadAddress
                 , restaurantEntity.location
                 , restaurantEntity.category
+                , restaurantEntity.isBusinessActive
                 , restaurantEntity.telephone
                 , restaurantEntity.score
                 ))

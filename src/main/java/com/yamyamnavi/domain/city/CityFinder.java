@@ -1,6 +1,5 @@
 package com.yamyamnavi.domain.city;
 
-import com.yamyamnavi.api.v1.converter.CityConverter;
 import com.yamyamnavi.api.v1.response.CityResponse;
 import com.yamyamnavi.api.v1.response.SggResponse;
 import lombok.RequiredArgsConstructor;
