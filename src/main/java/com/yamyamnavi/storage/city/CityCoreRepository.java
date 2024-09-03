@@ -26,6 +26,6 @@ public class CityCoreRepository implements CityRepository {
 
     @Override
     public void removeAll() {
-        cityJpaRepository.deleteAll();
+        cityJpaRepository.deleteAllInBatch();
     }
 }
