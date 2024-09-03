@@ -88,6 +88,9 @@ dependencies {
 	// redis
 	implementation 'org.springframework.boot:spring-boot-starter-data-redis'
 
+	// commons-csv
+	implementation group: 'org.apache.commons', name: 'commons-csv', version: '1.5'
+
 }
 
 tasks.named('test') {
