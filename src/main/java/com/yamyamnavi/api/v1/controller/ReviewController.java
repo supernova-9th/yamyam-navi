@@ -29,6 +29,7 @@ public class ReviewController {
     /**
      * 새로운 리뷰를 생성합니다.
      *
+     * @param user    인증된 유저의 정보를 담고 있는 LoginUser 객체
      * @param request 생성할 리뷰의 정보가 담긴 ReviewCreateRequest 객체
      * @return 생성된 리뷰의 정보가 담긴 ReviewResponse 객체를 ResultResponse로 감싸서 반환
      */
