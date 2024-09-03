@@ -54,6 +54,13 @@ public class UserController {
         return new ResultResponse<>(tokenResponse);
     }
 
+    /**
+     * 사용자 비밀번호를 변경합니다.
+     *
+     * @param loginUser 로그인에 필요한 정보를 담은 객체
+     * @param request 업데이트할 사용자 정보를 담고 있는 객체
+     * @return 업데이트 된 고객 정보
+     */
     @PutMapping("/me/password")
     @Operation(summary = "비밀번호 변경", description = "로그인한 사용자의 비밀번호를 변경합니다.")
     public ResultResponse<UserResponse> changePassword(@AuthenticationPrincipal LoginUser loginUser, @Valid @RequestBody UserChangePasswordRequest request) {
@@ -66,7 +73,7 @@ public class UserController {
      *
      * @param loginUser 업데이트할 사용자의 이메일
      * @param request 업데이트할 사용자 정보를 담고 있는 객체
-     * @return 업데이트된 사용자 정보
+     * @return 업데이트 된 사용자 정보
      */
     @PutMapping("/me/location")
     @Operation(summary = "위치 정보 업데이트", description = "로그인한 사용자의 위치 정보를 주소를 기반으로 업데이트합니다.")

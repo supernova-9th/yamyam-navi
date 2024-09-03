@@ -73,17 +73,14 @@ public class SecurityConfig {
                 .sessionManagement(configurer -> configurer.sessionCreationPolicy(SessionCreationPolicy.STATELESS))
                 .authenticationProvider(authenticationProvider())
                 .cors(AbstractHttpConfigurer::disable)
+                .exceptionHandling(exceptionHandling ->
+                        exceptionHandling.authenticationEntryPoint(authenticationEntryPoint)
+                )
                 .authorizeHttpRequests(authorize -> authorize
                         .requestMatchers("/api/v1/users/sign-in", "/api/v1/users", "/api/v1/tokens/reissue", "/swagger-ui/**", "/v3/api-docs/**").permitAll()
+                        .requestMatchers("/api/v1/**").authenticated()
                         .anyRequest().authenticated()
                 );
-
-        if (authenticationEntryPoint != null) {
-            http.exceptionHandling(exceptionHandling ->
-                    exceptionHandling.authenticationEntryPoint(authenticationEntryPoint)
-            );
-        }
-
         return http.build();
     }
 

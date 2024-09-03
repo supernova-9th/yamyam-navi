@@ -5,6 +5,8 @@ import jakarta.persistence.*;
 import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import org.locationtech.jts.geom.Point;
+
 
 @Getter
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
@@ -18,21 +20,13 @@ public class UserEntity extends BaseEntity {
     @Column(nullable = false)
     private String password;
 
-    @Column(nullable = false)
-    private boolean active;
+    @Column(columnDefinition = "POINT SRID 4326")
+    private Point location;
 
-    @Column(nullable = false)
-    private Double latitude;
-
-    @Column(nullable = false)
-    private Double longitude;
-
-    public UserEntity(String email, String password, Double latitude, Double longitude) {
+    public UserEntity(String email, String password, Point location) {
         this.email = email;
         this.password = password;
-        this.active = false;
-        this.latitude = latitude;
-        this.longitude = longitude;
+        this.location = location;
     }
 
     public void setEmail(String email) {
@@ -43,15 +37,7 @@ public class UserEntity extends BaseEntity {
         this.password = password;
     }
 
-    public void setActive(boolean active) {
-        this.active = active;
-    }
-
-    public void setLatitude(Double latitude) {
-        this.latitude = latitude;
-    }
-
-    public void setLongitude(Double longitude) {
-        this.longitude = longitude;
+    public void setLocation(Point location) {
+        this.location = location;
     }
 }

@@ -12,13 +12,11 @@ public class LoginUser implements UserDetails {
     private final Long id;
     private final String email;
     private final String password;
-    private final boolean active;
 
     public LoginUser(User user) {
         this.id = user.getId();
         this.email = user.getEmail();
         this.password = user.getPassword();
-        this.active = user.isActive();
     }
 
     public Long getId() {
@@ -53,11 +51,6 @@ public class LoginUser implements UserDetails {
     @Override
     public boolean isCredentialsNonExpired() {
         return true;
-    }
-
-    @Override
-    public boolean isEnabled() {
-        return active;
     }
 
     public String getEmail() {
