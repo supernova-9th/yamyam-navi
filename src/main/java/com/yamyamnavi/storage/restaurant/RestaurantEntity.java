@@ -37,6 +37,7 @@ public class RestaurantEntity extends BaseEntity {
     @Column(nullable = false, unique = true, updatable = false)
     private String uniqueName;
 
+    @Column(nullable = false)
     private String telephone;
 
     @Column(nullable = false)
