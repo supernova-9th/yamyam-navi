@@ -20,6 +20,7 @@ public class CityService {
 
     private final CityFinder cityFinder;
     private final CityAppender cityAppender;
+    private final CityRemover cityRemover;
 
     /**
      * 도시 목록을 조회합니다.
@@ -39,6 +40,8 @@ public class CityService {
      */
     @Transactional
     public void upload(MultipartFile file) throws Exception {
+        cityRemover.removeAll();
+
         try (BufferedReader reader = new BufferedReader(new InputStreamReader(file.getInputStream(), StandardCharsets.UTF_8))) {
             CSVParser csvParser = CSVFormat.DEFAULT.withFirstRecordAsHeader().parse(reader);
 

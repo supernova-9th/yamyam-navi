@@ -23,4 +23,9 @@ public class CityCoreRepository implements CityRepository {
         CityEntity entity = cityConverter.convertToCityEntity(citySgg);
         cityJpaRepository.save(entity);
     }
+
+    @Override
+    public void removeAll() {
+        cityJpaRepository.deleteAll();
+    }
 }

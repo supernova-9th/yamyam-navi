@@ -9,4 +9,6 @@ public interface CityRepository {
     List<CitySgg> findAll();
 
     void save(CitySgg citySgg);
+
+    void removeAll();
 }
