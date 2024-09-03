@@ -25,8 +25,8 @@ class ReviewConverterTest {
     @Test
     void ReviewCreateRequest를_Review로_변환한다() {
         //given
+        Long userId = 1L;
         ReviewCreateRequest request = ReviewCreateRequest.builder()
-                .userId(1L)
                 .restaurantId(1L)
                 .content("goood")
                 .score(3)
@@ -34,7 +34,7 @@ class ReviewConverterTest {
         Review expect = new Review(1L, 1L, 1L,"goood", 3, LocalDateTime.now(), LocalDateTime.now());
 
         //when
-        Review result = reviewConverter.convertToReview(request);
+        Review result = reviewConverter.convertToReview(userId, request);
 
         //then
         assertEquals(expect.getUserId(), result.getUserId());
