@@ -10,6 +10,7 @@ import org.locationtech.jts.geom.Point;
 @NoArgsConstructor
 @AllArgsConstructor
 public class Restaurant {
+    private Long id;
     private String name;
     private String jibeonAddress;
     private String roadAddress;
@@ -17,7 +18,8 @@ public class Restaurant {
     private String category;
     private double score;
 
-    public Restaurant(String name, String jibeonAddress, String roadAddress, Point point, String category, double score) {
+    public Restaurant(Long id, String name, String jibeonAddress, String roadAddress, Point point, String category, double score) {
+        this.id = id;
         this.name = name;
         this.jibeonAddress = jibeonAddress;
         this.roadAddress = roadAddress;
