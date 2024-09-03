@@ -7,4 +7,6 @@ import java.util.List;
 @Repository
 public interface CityRepository {
     List<CitySgg> findAll();
+
+    void save(CitySgg citySgg);
 }
