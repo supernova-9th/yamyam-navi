@@ -5,11 +5,13 @@ import com.yamyamnavi.api.v1.request.ReviewCreateRequest;
 import com.yamyamnavi.api.v1.response.ReviewResponse;
 import com.yamyamnavi.domain.review.Review;
 import com.yamyamnavi.domain.review.ReviewService;
+import com.yamyamnavi.security.LoginUser;
 import com.yamyamnavi.support.response.ResultResponse;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -32,9 +34,9 @@ public class ReviewController {
      */
     @PostMapping
     @Operation(summary = "새로운 리뷰 생성", description = "새로운 리뷰를 생성하고 생성된 리뷰를 반환합니다.")
-    public ResultResponse<ReviewResponse> createReview(@RequestBody @Valid ReviewCreateRequest request) {
+    public ResultResponse<ReviewResponse> createReview(@AuthenticationPrincipal LoginUser user, @RequestBody @Valid ReviewCreateRequest request) {
 
-        Review review = reviewConverter.convertToReview(request);
+        Review review = reviewConverter.convertToReview(user.getId(), request);
         Review savedReview = reviewService.createReview(review);
         ReviewResponse response = reviewConverter.convertToReviewResponse(savedReview);
 
