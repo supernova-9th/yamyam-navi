@@ -22,9 +22,9 @@ public class RestaurantService {
      * @return 조회된 맛집의 상세 정보가 담긴 RestaurantDetail 객체
      */
     @Transactional(readOnly = true)
-    public RestaurantDetail getRestaurantDetail(Long id) {
+    public RestaurantDetail getRestaurantDetail(Long id, PageRequest pageRequest) {
         RestaurantDetail detail = restaurantFinder.find(id);
-        detail.updateReviews(reviewFinder.findAll(id));
+        detail.updateReviewsResponse(reviewFinder.findReviews(id, pageRequest));
         return detail;
     }
 
