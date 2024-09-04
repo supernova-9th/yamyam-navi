@@ -18,9 +18,7 @@ public record UserCreateRequest(
         @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-zA-Z]).*$", message = "비밀번호는 숫자와 영문자를 모두 포함해야 합니다.")
         String password,
 
-        @Schema(description = "사용자 위치의 위도", example = "37.5665")
-        Double latitude,
-
-        @Schema(description = "사용자 위치의 경도", example = "126.9780")
-        Double longitude
+        @Schema(description = "사용자 주소", example = "서울특별시 동작구 여의대방로54길 18")
+        @NotBlank(message = "주소는 필수입니다.")
+        String address
 ) {}

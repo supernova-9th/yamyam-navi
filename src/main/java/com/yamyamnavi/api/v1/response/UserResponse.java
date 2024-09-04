@@ -10,9 +10,6 @@ public record UserResponse(
         @Schema(description = "사용자 이메일", example = "user@example.com")
         String email,
 
-        @Schema(description = "사용자 활성화 상태", example = "true")
-        boolean active,
-
         @Schema(description = "사용자 위치의 위도", example = "37.5116")
         Double latitude,
 
