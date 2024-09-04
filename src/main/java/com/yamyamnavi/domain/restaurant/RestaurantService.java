@@ -19,6 +19,7 @@ public class RestaurantService {
      * 맛집의 상세 정보를 조회합니다.
      *
      * @param id 조회할 맛집 아이디
+     * @param pageRequest 페이지 요청 정보를 담고 있는 PageRequest 객체
      * @return 조회된 맛집의 상세 정보가 담긴 RestaurantDetail 객체
      */
     @Transactional(readOnly = true)
@@ -28,6 +29,13 @@ public class RestaurantService {
         return detail;
     }
 
+    /**
+     * 맛집 목록을 조회합니다.
+     *
+     * @param searchRequest 맛집 검색 조건을 담고 있는 RestaurantSearchRequest 객체
+     * @param pageRequest 페이지 요청 정보를 담고 있는 PageRequest 객체
+     * @return 검색 조건에 맞는 맛집 목록이 담긴 PageResponse 객체
+     */
     @Transactional(readOnly = true)
     public PageResponse<Restaurant> getRestaurants(RestaurantSearchRequest searchRequest, PageRequest pageRequest) {
         return restaurantFinder.findRestaurants(searchRequest, pageRequest);
