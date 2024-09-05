@@ -1,6 +1,7 @@
 package com.yamyamnavi.domain.restaurant;
 
 import com.yamyamnavi.domain.review.Review;
+import com.yamyamnavi.support.response.PageResponse;
 import lombok.*;
 import org.locationtech.jts.geom.Point;
 
@@ -21,6 +22,7 @@ public class RestaurantDetail {
     private String telephone;
     private double score;
     private List<Review> reviews;
+    private PageResponse<Review> pageReviews;
 
     public void updateReviews(List<Review> reviews) {
         this.reviews = reviews;
@@ -48,5 +50,9 @@ public class RestaurantDetail {
         this.isBusinessActive = isBusinessActive;
         this.telephone = telephone;
         this.score = score;
+    }
+
+    public void updateReviewsResponse(PageResponse<Review> reviews) {
+        this.pageReviews = reviews;
     }
 }

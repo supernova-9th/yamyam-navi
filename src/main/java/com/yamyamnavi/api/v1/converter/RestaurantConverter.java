@@ -1,18 +1,16 @@
 package com.yamyamnavi.api.v1.converter;
 
-import com.yamyamnavi.api.v1.response.RestaurantDetailResponse;
-import com.yamyamnavi.api.v1.response.ReviewDetailResponse;
+import com.yamyamnavi.api.v1.response.RestaurantDetailPageResponse;
 import com.yamyamnavi.domain.restaurant.RestaurantDetail;
-import com.yamyamnavi.domain.review.Review;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 
-@Mapper(componentModel = "spring")
+
+@Mapper(componentModel = "spring", uses = {ReviewConverter.class})
 public interface RestaurantConverter {
 
     @Mapping(target = "longitude", expression = "java(source.getLocation().getLongitude())")
     @Mapping(target = "latitude", expression = "java(source.getLocation().getLatitude())")
-    RestaurantDetailResponse convertToRestaurantDetailResponse(RestaurantDetail source);
+    RestaurantDetailPageResponse convertToRestaurantDetailPageResponse(RestaurantDetail source);
 
-    ReviewDetailResponse convertToReviewResponse(Review source);
 }

@@ -1,8 +1,9 @@
 package com.yamyamnavi.api.v1.controller;
 
 import com.yamyamnavi.api.v1.converter.RestaurantConverter;
+import com.yamyamnavi.api.v1.request.RestaurantDetailSearchRequest;
 import com.yamyamnavi.api.v1.request.RestaurantSearchRequest;
-import com.yamyamnavi.api.v1.response.RestaurantDetailResponse;
+import com.yamyamnavi.api.v1.response.RestaurantDetailPageResponse;
 import com.yamyamnavi.domain.restaurant.Restaurant;
 import com.yamyamnavi.domain.restaurant.RestaurantService;
 import com.yamyamnavi.support.error.RestaurantNotFoundException;
@@ -45,7 +46,9 @@ public class RestaurantController {
      */
     @GetMapping("/{id}")
     @Operation(summary = "맛집 상세 조회", description = "맛집 상세 정보를 조회합니다.")
-    public ResultResponse<RestaurantDetailResponse> getRestaurant(@PathVariable(value = "id") Long id) {
-        return new ResultResponse<>(restaurantConverter.convertToRestaurantDetailResponse(restaurantService.getRestaurantDetail(id)));
+    public ResultResponse<RestaurantDetailPageResponse> getRestaurant(@PathVariable(value = "id") Long id,
+                                                                      @ModelAttribute RestaurantDetailSearchRequest searchRequest) {
+        PageRequest pageRequest = PageRequest.of(searchRequest.page(), searchRequest.size(), searchRequest.toSort());
+        return new ResultResponse<>(restaurantConverter.convertToRestaurantDetailPageResponse(restaurantService.getRestaurantDetail(id, pageRequest)));
     }
 }
